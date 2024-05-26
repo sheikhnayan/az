@@ -70,7 +70,7 @@ function jsUcfirst(string) {
 }
 
 function _formValidation(form_id = 'content_form', modal = null, dataTable = null) {
-
+    console.log('got this');
     const form = $('#' + form_id);
 
     if (!form.length) {
