@@ -10,11 +10,11 @@
                 <div class="dashboard_white_box style2 bg-white mb_25">
                     @if(isset($myCode))
                     <div class="dashboard_white_box_header d-flex align-items-center">
-                        <h4 class="font_24 f_w_700 mb_20">{{__('defaultTheme.my_referral_code')}}</h4>
+                        <h4 class="font_24 f_w_700 mb_20">My Affiliate Link</h4>
                     </div>
                     <div id="coupon">
                         <div class="d-flex gap_10 flex-sm-wrap flex-md-nowrap gray_color_1 theme_border padding25 mb_40">
-                            <input name="code" id="code" value="{{getNumberTranslate($myCode->referral_code)}}" class="primary_input3 rounded-0 style2  flex-fill" readonly type="text">
+                            <input name="code" id="code" value="https://eakeen.com/register?ref={{getNumberTranslate($myCode->referral_code)}}" class="primary_input3 rounded-0 style2  flex-fill" readonly type="text">
                             <button id="copyBtn" class="amaz_primary_btn style2 text-nowrap ">{{__('defaultTheme.copy_code')}}</button>
                         </div>
                     </div>
@@ -32,7 +32,8 @@
                                         <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">{{__('common.user')}}</th>
                                         <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">{{__('common.date')}}</th>
                                         <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">{{__('common.status')}}</th>
-                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">{{__('defaultTheme.discount_amount')}}</th>
+                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Rank</th>
+                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Members</th>
                                         <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">{{__('common.action')}}</th>
                                         </tr>
                                     </thead>
@@ -72,13 +73,13 @@
                     </div>
                     @else
                         <div class="dashboard_white_box_header d-flex align-items-center">
-                            <h4 class="font_24 f_w_700 mb_20 text-center w-100">{{__('defaultTheme.you_will_get_referral_after')}}</h4>
+                            <h4 class="font_24 f_w_700 mb_20 text-center w-100"><a href="{{ route('bacome-affiliate') }}">Apply to become a Affiliator!</a></h4>
                         </div>
                     @endif
                 </div>
             </div>
         </div>
-        
+
     </div>
 </div>
 @endsection

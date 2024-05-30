@@ -137,7 +137,7 @@
                     @endforeach
                 @endif
             @endforeach
-            <li class="{{spn_active_link(childrenRoute($menu))}}">
+            {{-- <li class="{{spn_active_link(childrenRoute($menu))}}">
                 <a href="{{ route('affiliate-request') }}" class="" aria-expanded="false">
                     <div class="nav_icon_small">
                         <span class="fas fa-users"></span>
@@ -146,7 +146,7 @@
                         <span>Affilaite Request</span>
                     </div>
                 </a>
-            </li>
+            </li> --}}
         </ul>
     @endif
 </nav>

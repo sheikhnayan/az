@@ -44,7 +44,7 @@ Route::get('become-affiliate', [AffiliateController::class,'index'])->name('baco
 
 Route::get('set-affiliate/{id}', [AffiliateController::class,'set_affiliate'])->name('set-affiliate');
 
-Route::get('apply-affiliate', [AffiliateController::class,'apply'])->name('apply-affiliate')->middleware('auth');
+Route::post('apply-affiliate', [AffiliateController::class,'apply'])->name('apply-affiliate')->middleware('auth');
 
 Route::post('/locale',[LanguageController::class,'locale'])->name('frontend.locale')->middleware('prohibited_demo_mode');
 Auth::routes(['verify' => true]);
@@ -68,6 +68,7 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/dashboard-cards-info/{type}', [ProfileController::class, 'dashboardCards'])->name('dashboard.card.info');
     Route::get('/affiliate-request', [AffiliateController::class, 'affiliate_request'])->name('affiliate-request');
     Route::get('/affiliate-request/{id}', [AffiliateController::class, 'affiliate_request_approve'])->name('affiliate-request-approve');
+    Route::get('/affiliate-request-disapprove/{id}', [AffiliateController::class, 'affiliate_request_disapprove'])->name('affiliate-request-disapprove');
 });
 Route::post('search',[SearchController::class,'search'])->name('routeSearch');
 //for category page

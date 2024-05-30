@@ -158,14 +158,14 @@
 
                     @else
                         <div class="col-12 mb_20">
-                            <label class="primary_label2">{{__('common.first_name')}} <span>*</span> </label>
+                            <label class="primary_label2">Full Name <span>*</span> </label>
                             <input name="first_name" id="first_name" value="{{ old('first_name') }}" placeholder="{{ __('common.first_name') }}" onfocus="this.placeholder = ''" onblur="this.placeholder = '{{ __('common.first_name') }}'" class="primary_input3 radius_5px" type="text">
                             <span class="text-danger" >{{ $errors->first('first_name') }}</span>
                         </div>
                         <div class="col-12 mb_20">
-                            <label class="primary_label2">{{__('common.last_name')}}</label>
-                            <input name="last_name" id="last_name" value="{{ old('last_name') }}" placeholder="{{ __('common.last_name') }}" onfocus="this.placeholder = ''" onblur="this.placeholder = '{{ __('common.last_name') }}'" class="primary_input3 radius_5px" type="text">
-                            <span class="text-danger" >{{ $errors->first('last_name') }}</span>
+                            <label class="primary_label2">User Name <span>*</span></label>
+                            <input name="username" id="username" value="{{ old('username') }}" placeholder="{{ __('common.username') }}" onfocus="this.placeholder = ''" onblur="this.placeholder = '{{ __('common.username') }}'" class="primary_input3 radius_5px" type="text">
+                            <span class="text-danger" >{{ $errors->first('username') }}</span>
                         </div>
                         @if(isModuleActive('Otp') && otp_configuration('otp_activation_for_customer') || app('business_settings')->where('type', 'email_verification')->first()->status == 0)
                         <div class="col-12 mb_20">
@@ -181,7 +181,7 @@
                         </div>
                         @endif
                         <div class="col-12 mb_20">
-                            <label for="referral_code" class="primary_label2">{{__('common.referral_code_(optional)')}}</label>
+                            <label for="referral_code" class="primary_label2">Affiliator Code (Optional)</label>
                             <input name="referral_code" id="referral_code" value="{{ old('referral_code') }}" placeholder="{{ __('common.referral_code') }}" onfocus="this.placeholder = ''" onblur="this.placeholder = '{{ __('common.referral_code') }}'" class="primary_input3 radius_5px" type="text">
                             <span class="text-danger" >{{ $errors->first('referral_code') }}</span>
                         </div>
@@ -258,7 +258,14 @@
                     return false;
                 }
             });
+
+            var myParam = location.search.split('ref=')[1] ? location.search.split('ref=')[1] : 'none';
+
+            if (myParam != 'none') {
+                $('#referral_code').val(myParam);
+            }
         });
     })(jQuery);
 </script>
+
 @endpush

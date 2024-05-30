@@ -15,7 +15,7 @@
         if($themeColor->id == 1){
             $themeColor = (object)[
                 'background_color' => '#fff',
-                'base_color' => '#FF2732',
+                'base_color' => '#ff6900',
                 'text_color' => '#00124e',
                 'feature_color' => '#fff',
                 'footer_background_color' => '#000',

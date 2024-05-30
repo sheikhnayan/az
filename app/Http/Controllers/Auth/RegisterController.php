@@ -63,6 +63,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'first_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'max:255', 'unique:users,email', 'check_unique_phone'],
+            'username' => ['required', 'string', 'max:255', 'unique:users,username'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'g-recaptcha-response' =>$g_recaptcha,
             'referral_code' => ['sometimes', 'nullable', Rule::exists('referral_codes', 'referral_code')->where('status', 1)]
@@ -110,7 +111,7 @@ class RegisterController extends Controller
             'currency_id' => app('general_setting')->currency,
             'lang_code' => app('general_setting')->language_code,
             'currency_code' => app('general_setting')->currency_code,
-            "is_active" => manualActivation() == true ? 0:1
+            "is_active" => 1
         ]);
 
 

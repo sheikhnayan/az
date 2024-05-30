@@ -40,7 +40,11 @@
                                     <li><a href="{{ url($page->pageData->slug) }}">{{$page->name}}</a></li>
                                     @endif
                                 @endforeach
-                                    <li><a href="{{ route('bacome-affiliate') }}">Become an Affiliate</a></li>
+                                @auth
+                                <li><a href="{{ route('bacome-affiliate') }}">Become an Affiliator</a></li>
+                                @else
+                                <li style="color: #fff; text-transform: capitalize;"> <a href="{{ route('register') }}">You can earn through product affiliation also by creating customer!</a></li>
+                                @endauth
                             </ul>
                         </div>
                     </div>

@@ -47,6 +47,15 @@
                                         <tr>
                                             <th>{{__('common.sl')}}</th>
                                             <th width="10%">User</th>
+                                            <th width="10%">NID Number</th>
+                                            <th width="10%">Nid Front</th>
+                                            <th width="10%">Nid Back</th>
+                                            <th width="10%">Date Of Birth</th>
+                                            <th width="10%">Blood Group</th>
+                                            <th width="10%">Gender</th>
+                                            <th width="10%">Payment Method</th>
+                                            <th width="10%">Account Number / Bank Name</th>
+                                            <th width="10%">Transaction Number</th>
                                             <th>{{__('common.action')}}</th>
                                         </tr>
                                     </thead>
@@ -58,10 +67,38 @@
                                                     <a href="{{ route('customer.show_details',[$item->user_id]) }}"> {{ $item->user->name }} </a>
                                                 </td>
                                                 <td>
+                                                    {{ $item->nid_number }}
+                                                </td>
+                                                <td>
+                                                    <a target="_blank" href="{{ asset('public/storage'.$item->nid_front) }}">NID Front Image</a>
+                                                </td>
+                                                <td>
+                                                    <a target="_blank" href="{{ asset('public/storage'.$item->nid_back) }}">NID Front Image</a>
+                                                </td>
+                                                <td>
+                                                    {{ $item->dob }}
+                                                </td>
+                                                <td>
+                                                    {{ $item->blood_group }}
+                                                </td>
+                                                <td>
+                                                    {{ $item->gender }}
+                                                </td>
+                                                <td>
+                                                    {{ $item->payment_method }}
+                                                </td>
+                                                <td>
+                                                    {{ $item->account_number }}
+                                                </td>
+                                                <td>
+                                                    {{ $item->transaction_number }}
+                                                </td>
+                                                <td>
                                                     @if ($item->status == 0)
                                                     <a href="{{ route('affiliate-request-approve',[$item->id]) }}" class="btn btn-success" id="approve">Approve</a>
                                                     @else
                                                     <span class="badge badge-success">Approved</span>
+                                                    <a href="{{ route('affiliate-request-disapprove',[$item->id]) }}" class="btn btn-danger">Disapprove</a>
                                                     @endif
                                                 </td>
                                             </tr>
