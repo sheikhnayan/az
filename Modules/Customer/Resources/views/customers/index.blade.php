@@ -111,9 +111,12 @@
                                                         <td>
                                                             @php
                                                                 $code = DB::table('referral_codes')->where('user_id',$item->id)->first();
-                                                                $count = DB::table('referral_uses')->where('referral_code',$code->referral_code)->count();
+                                                                if ($code) {
+                                                                    # code...
+                                                                    $count = DB::table('referral_uses')->where('referral_code',$code->referral_code)->count();
+                                                                }
                                                             @endphp
-                                                            {{ $count }}
+                                                            {{ $count ?? 0}}
                                                         </td>
                                                         <td>{{ $item->rank }}</td>
                                                     </tr>
