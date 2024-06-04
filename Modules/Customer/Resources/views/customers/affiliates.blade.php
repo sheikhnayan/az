@@ -15,30 +15,9 @@
 
                             <li class="nav-item">
                                 <a class="nav-link active show" href="#all_customer" role="tab" data-toggle="tab"
-                                    id="1" aria-selected="true">{{ __('common.all') }} {{__('common.customer')}}</a>
+                                    id="1" aria-selected="true">Affiliates</a>
                             </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="#affiliate" role="tab" data-toggle="tab"
-                                    id="1" aria-selected="true">Affiliate Customers</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="#active_customer" role="tab" data-toggle="tab"
-                                    id="1" aria-selected="true">{{ __('common.active_customer') }}</a>
-                            </li>
-                            @if (permissionCheck('customer.list_inactive'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="#in_active_customer" role="tab" data-toggle="tab" id="1"
-                                    aria-selected="true">{{ __('common.in_active_customer') }}</a>
-                            </li>
-                            @endif
-
-                            @if (permissionCheck('admin.customer.create'))
-                            <li class="nav-item">
-                                <a class="nav-link active" href="{{route('admin.customer.create')}}">{{ __('common.create') }} {{__('common.customer')}}</a>
-                            </li>
-                            @endif
                         </ul>
                     </div>
                 </div>
@@ -46,39 +25,7 @@
             <div class="col-xl-12">
                 <div class="white_box_30px mb_30">
                     <div class="tab-content">
-
                         <div role="tabpanel" class="tab-pane fade active show" id="all_customer">
-                            <div class="box_header common_table_header ">
-                                <div class="main-title d-md-flex">
-                                    <h3 class="mb-0 mr-30 mb_xs_15px mb_sm_20px">{{__('common.active_customer')}}</h3>
-                                </div>
-                            </div>
-                            <div class="QA_section QA_section_heading_custom check_box_table">
-                                <div class="QA_table">
-                                    <!-- table-responsive -->
-                                    <div class="">
-                                        @include('customer::customers.components.all_lists')
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div role="tabpanel" class="tab-pane fade" id="active_customer">
-                            <div class="box_header common_table_header ">
-                                <div class="main-title d-md-flex">
-                                    <h3 class="mb-0 mr-30 mb_xs_15px mb_sm_20px">{{__('common.active_customer')}}</h3>
-                                </div>
-                            </div>
-                            <div class="QA_section QA_section_heading_custom check_box_table">
-                                <div class="QA_table">
-                                    <!-- table-responsive -->
-                                    <div class="">
-                                        @include('customer::customers.components.active_lists')
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane fade" id="affiliate">
                             <div class="box_header common_table_header ">
                                 <div class="main-title d-md-flex">
                                     <h3 class="mb-0 mr-30 mb_xs_15px mb_sm_20px">Affiliate Customers</h3>
@@ -102,16 +49,11 @@
                                                 @foreach ($affiliate as $key => $item)
                                                     <tr>
                                                         <td>{{ $key + 1 }}</td>
-                                                        <td>
-                                                            <a href="{{ route('affiliates',$item->id) }}">
-                                                                {{ $item->first_name }}
-                                                            </a>
-                                                        </td>
+                                                        <td>{{ $item->first_name }}</td>
                                                         <td>{{ $item->email }}</td>
                                                         <td>
                                                             @php
-                                                                $code = DB::table('referral_codes')->where('user_id',$item->id)->first();
-                                                                $count = DB::table('referral_uses')->where('referral_code',$code->referral_code)->count();
+                                                                $count = DB::table('referral_codes')->where('user_id',$item->id)->count();
                                                             @endphp
                                                             {{ $count }}
                                                         </td>
@@ -124,24 +66,6 @@
                                 </div>
                             </div>
                         </div>
-                        @if (permissionCheck('customer.list_inactive'))
-                        <div role="tabpanel" class="tab-pane fade" id="in_active_customer">
-                            <div class="box_header common_table_header ">
-                                <div class="main-title d-md-flex">
-                                    <h3 class="mb-0 mr-30 mb_xs_15px mb_sm_20px">{{ __('common.in_active_customer') }}
-                                    </h3>
-                                </div>
-                            </div>
-                            <div class="QA_section QA_section_heading_custom check_box_table">
-                                <div class="QA_table">
-                                    <!-- table-responsive -->
-                                    <div class="">
-                                        @include('customer::customers.components.in_active_lists')
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endif
                     </div>
                 </div>
             </div>

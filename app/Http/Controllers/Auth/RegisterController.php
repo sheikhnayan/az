@@ -146,8 +146,56 @@ class RegisterController extends Controller
                     'referral_code' => $data['referral_code'],
                     'discount_amount' => $referralData->amount
                 ]);
+                $count = ReferralUse::where('referral_code', $data['referral_code'])->count();
+
+                #rank 1
+                if ($count > 9) {
+                    # code...
+                    $use = User::where('id',$referralExist->user_id)->first();
+                    $use->rank = 1;
+                    $use->update();
+
+                    $affs = ReferralUse::where('referral_code', $data['referral_code'])->get();
+
+                        $coun = 0;
+
+                        foreach ($affs as $key => $value) {
+                            # code...
+                            $count1 = ReferralUse::where('referral_code', $value->referral_code)->count();
+
+                            if ($count1 > 9) {
+                                # code...
+                                $coun += 1;
+                            }
+
+                        }
+
+                        if ($coun > 9) {
+                            # code...
+                            $use = User::where('id',$referralExist->user_id)->first();
+                            $use->rank = 2;
+                            $use->update();
+                        }
+
+                }
+
+
+            }
+        }else {
+            $referralData = ReferralCodeSetup::first();
+            $ref_code = ReferralCode::where('user_id', 1)->first();
+            $referralExist = ReferralCode::where('referral_code', $ref_code['referral_code'])->first();
+            if ($referralExist) {
+                $referralExist->update(['total_used' => $referralExist->total_used + 1]);
+                ReferralUse::create([
+                    'user_id' => $user->id,
+                    'referral_code' => $ref_code['referral_code'],
+                    'discount_amount' => $referralData->amount
+                ]);
             }
         }
+
+
         if(manualActivation() == true)
         {
 

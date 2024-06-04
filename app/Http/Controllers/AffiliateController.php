@@ -125,9 +125,22 @@ class AffiliateController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function affiliates(string $id)
     {
-        //
+        $code = ReferralCode::where('user_id',$id)->first();
+
+        $data = ReferralUse::where('referral_code',$code->referral_code)->get();
+
+        $affiliate = [];
+
+        foreach ($data as $key => $value) {
+            # code...
+            $add = User::find($value->user_id);
+
+            array_push($affiliate,$add);
+        }
+
+        return view('customer::customers.affiliates',compact('affiliate'));
     }
 
     /**

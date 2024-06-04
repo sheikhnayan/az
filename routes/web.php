@@ -68,6 +68,7 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/dashboard-cards-info/{type}', [ProfileController::class, 'dashboardCards'])->name('dashboard.card.info');
     Route::get('/affiliate-request', [AffiliateController::class, 'affiliate_request'])->name('affiliate-request');
     Route::get('/affiliate-request/{id}', [AffiliateController::class, 'affiliate_request_approve'])->name('affiliate-request-approve');
+    Route::get('/affiliate/{id}', [AffiliateController::class, 'affiliates'])->name('affiliates');
     Route::get('/affiliate-request-disapprove/{id}', [AffiliateController::class, 'affiliate_request_disapprove'])->name('affiliate-request-disapprove');
 });
 Route::post('search',[SearchController::class,'search'])->name('routeSearch');

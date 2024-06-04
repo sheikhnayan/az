@@ -51,10 +51,23 @@
                                                 <span class="font_14 f_w_500 mute_text">{{dateConvert($referral->created_at)}} </span>
                                             </td>
                                             <td>
-                                            <a href="#" id="referral_used_{{$referral->id}}" class="table_badge_btn {{$referral->is_use == 1?'style4':'style3'}} text-nowrap">{{$referral->is_use == 1?__('defaultTheme.already_use'):__('defaultTheme.not_used')}}</a>
+
+                                                <span class="font_14 f_w_500 mute_text">
+                                                    @php
+                                                        $user = DB::table('users')->where('id',$referral->user_id)->first();
+                                                    @endphp
+                                                    {{ $user->rank }}
+                                                </span>
                                             </td>
                                             <td>
-                                                <span class="font_14 f_w_500 mute_text">{{single_price($referral->discount_amount)}} </span>
+                                                <span class="font_14 f_w_500 mute_text">
+                                                    @php
+                                                        $code = DB::table('referral_codes')->where('user_id',$referral->user_id)->first();
+                                                        $count = DB::table('referral_uses')->where('referral_code',$code->referral_code)->count();
+                                                    @endphp
+                                                    {{ $count }}
+                                                    {{-- {{single_price($referral->discount_amount)}} --}}
+                                                </span>
                                             </td>
                                             <td>
                                             <button id="referral_used{{$referral->id}}" class="referral_used {{$referral->is_use == 1?'style4 amaz_primary_btn gray_bg_btn':'style3 amaz_primary_btn'}} text-nowrap" {{$referral->is_use == 1 ? 'disabled' : '' }} data-id="{{$referral->id}}">{{$referral->is_use == 1?__('common.already_claimed'):__('common.claim')}}</button>

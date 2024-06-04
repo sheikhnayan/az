@@ -35,6 +35,7 @@ class CustomerController extends Controller
     public function customer_index()
     {
         $data['customers'] = $this->customerService->getAll();
+        $data['affiliate'] = User::where('affiliate',1)->get();
         return view('customer::customers.index', $data);
     }
     public function customer_index_get_data(){
