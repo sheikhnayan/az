@@ -49,7 +49,11 @@
                                                 @foreach ($affiliate as $key => $item)
                                                     <tr>
                                                         <td>{{ $key + 1 }}</td>
-                                                        <td>{{ $item->first_name }}</td>
+                                                        <td>
+                                                            <a href="{{ route('affiliates',$item->id) }}">
+                                                                {{ $item->first_name }}
+                                                            </a>
+                                                        </td>
                                                         <td>{{ $item->email }}</td>
                                                         <td>
                                                             @php
