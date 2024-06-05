@@ -63,7 +63,10 @@
                                                 <span class="font_14 f_w_500 mute_text">
                                                     @php
                                                         $code = DB::table('referral_codes')->where('user_id',$referral->user_id)->first();
-                                                        $count = DB::table('referral_uses')->where('referral_code',$code->referral_code)->count();
+                                                        if ($code) {
+                                                            # code...
+                                                            $count = DB::table('referral_uses')->where('referral_code',$code->referral_code)->count();
+                                                        }
                                                     @endphp
                                                     {{ $count }}
                                                     {{-- {{single_price($referral->discount_amount)}} --}}
