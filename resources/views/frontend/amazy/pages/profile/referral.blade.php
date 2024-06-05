@@ -74,9 +74,6 @@
                                                 </span>
                                             </td>
                                             <td>
-                                                <span class="font_14 f_w_500 mute_text">{{ $referral->rank }}</span>
-                                            </td>
-                                            <td>
                                                 <span class="font_14 f_w_500 mute_text">SellPoint</span>
                                             </td>
                                             <td>
