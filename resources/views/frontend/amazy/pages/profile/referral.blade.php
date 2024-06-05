@@ -98,7 +98,6 @@
                                             <td>
                                                 <span class="font_14 f_w_500 mute_text">KYC</span>
                                             </td>
-                                            </td>
                                             {{-- <td>
                                             <button id="referral_used{{$referral->id}}" class="referral_used {{$referral->is_use == 1?'style4 amaz_primary_btn gray_bg_btn':'style3 amaz_primary_btn'}} text-nowrap" {{$referral->is_use == 1 ? 'disabled' : '' }} data-id="{{$referral->id}}">{{$referral->is_use == 1?__('common.already_claimed'):__('common.claim')}}</button>
                                             </td> --}}
