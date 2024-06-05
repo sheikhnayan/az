@@ -29,12 +29,17 @@
                                     <thead>
                                         <tr>
                                         <th class="font_14 f_w_700 priamry_text" scope="col">{{__('common.sl')}}</th>
+                                        <th class="font_14 f_w_700 priamry_text" scope="col">Image</th>
+                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">UserName</th>
                                         <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">{{__('common.user')}}</th>
-                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">{{__('common.date')}}</th>
-                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">{{__('common.status')}}</th>
+                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Phone</th>
+                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Area</th>
                                         <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Rank</th>
-                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Members</th>
-                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">{{__('common.action')}}</th>
+                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">SellPoint</th>
+                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Affilaites</th>
+                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Total Members</th>
+                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">KYC</th>
+                                        {{-- <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">{{__('common.action')}}</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -44,11 +49,20 @@
                                                 <span class="font_14 f_w_500 mute_text">{{getNumberTranslate($key +1)}}</span>
                                             </td>
                                             <td>
+                                                <span class="font_14 f_w_500 mute_text">{{ $referral->user->image }}</span>
+                                            </td>
+                                            <td>
+                                                <span class="font_14 f_w_500 mute_text">{{ $referral->user->username }}</span>
+                                            </td>
+                                            <td>
                                                 <span class="font_16 f_w_500 mute_text">{{textLimit(@$referral->user->first_name. @$referral->user->last_name,20)}}</span><br>
                                                 <span class="font_12 f_w_400 mute_text">{{@$referral->user->email?@$referral->user->email:@$referral->user->username}}</span>
                                             </td>
                                             <td>
-                                                <span class="font_14 f_w_500 mute_text">{{dateConvert($referral->created_at)}} </span>
+                                                <span class="font_14 f_w_500 mute_text">{{ $referral->user->phone }}</span>
+                                            </td>
+                                            <td>
+                                                <span class="font_14 f_w_500 mute_text">Area</span>
                                             </td>
                                             <td>
 
@@ -58,6 +72,12 @@
                                                     @endphp
                                                     {{ $user->rank }}
                                                 </span>
+                                            </td>
+                                            <td>
+                                                <span class="font_14 f_w_500 mute_text">{{ $referral->rank }}</span>
+                                            </td>
+                                            <td>
+                                                <span class="font_14 f_w_500 mute_text">SellPoint</span>
                                             </td>
                                             <td>
                                                 <span class="font_14 f_w_500 mute_text">
@@ -71,10 +91,16 @@
                                                     {{ $count }}
                                                     {{-- {{single_price($referral->discount_amount)}} --}}
                                                 </span>
+                                            <td>
+                                                <span class="font_14 f_w_500 mute_text">Total Members </span>
                                             </td>
                                             <td>
-                                            <button id="referral_used{{$referral->id}}" class="referral_used {{$referral->is_use == 1?'style4 amaz_primary_btn gray_bg_btn':'style3 amaz_primary_btn'}} text-nowrap" {{$referral->is_use == 1 ? 'disabled' : '' }} data-id="{{$referral->id}}">{{$referral->is_use == 1?__('common.already_claimed'):__('common.claim')}}</button>
+                                                <span class="font_14 f_w_500 mute_text">KYC</span>
                                             </td>
+                                            </td>
+                                            {{-- <td>
+                                            <button id="referral_used{{$referral->id}}" class="referral_used {{$referral->is_use == 1?'style4 amaz_primary_btn gray_bg_btn':'style3 amaz_primary_btn'}} text-nowrap" {{$referral->is_use == 1 ? 'disabled' : '' }} data-id="{{$referral->id}}">{{$referral->is_use == 1?__('common.already_claimed'):__('common.claim')}}</button>
+                                            </td> --}}
                                         </tr>
                                         @endforeach
                                     </tbody>
