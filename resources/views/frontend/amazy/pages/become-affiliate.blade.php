@@ -51,11 +51,11 @@ Become Affiliate
                 </div>
                 <div class="form-group">
                     <label for="">Account Number / Bank Name</label>
-                    <input type="file" name="account_number" class="form-control" required>
+                    <input type="text" name="account_number" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="">Transaction Number</label>
-                    <input type="file" name="transaction_number" class="form-control" required>
+                    <input type="text" name="transaction_number" class="form-control" required>
                 </div>
                 <button class="btn btn-success mt-4" type="submit">
                     Apply for Affiliate
