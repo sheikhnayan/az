@@ -91,6 +91,7 @@
                                                     {{ $count }}
                                                     {{-- {{single_price($referral->discount_amount)}} --}}
                                                 </span>
+                                            </td>
                                             <td>
                                                 <span class="font_14 f_w_500 mute_text">Total Members </span>
                                             </td>
