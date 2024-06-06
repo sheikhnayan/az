@@ -31,7 +31,7 @@
                                         <th class="font_14 f_w_700 priamry_text" scope="col">{{__('common.sl')}}</th>
                                         <th class="font_14 f_w_700 priamry_text" scope="col">Image</th>
                                         <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">UserName</th>
-                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">{{__('common.user')}}</th>
+                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Name</th>
                                         <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Phone</th>
                                         <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Area</th>
                                         <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Rank</th>

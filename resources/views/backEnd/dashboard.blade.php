@@ -113,6 +113,42 @@
                     </a>
                 </div>
             </div>
+            <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                <div
+                    class="white-box single-summery @if (app('dashboard_setup')->where('type', 'total_customer')->first()->is_active == 1) active @elseif (app('dashboard_setup')->where('type', 'total_customer')->first()->is_active == 2) bg_active  @endif">
+                    <a href="{{route('affiliate-request')}}" target="_blank">
+                        <div class="d-block mt-10">
+                            <h3>Total Affiliate Request</h3>
+                            <img class="demo_wait d-none" height="60px"
+                                src="{{showImage('backend/img/loader.gif')}}" alt="">
+                            <h1 class="gradient-color2">
+                                @php
+                                    $af = DB::table('affiliate_requests')->count();
+                                @endphp
+                                {{ $af }}
+                            </h1>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                <div
+                    class="white-box single-summery @if (app('dashboard_setup')->where('type', 'total_customer')->first()->is_active == 1) active @elseif (app('dashboard_setup')->where('type', 'total_customer')->first()->is_active == 2) bg_active  @endif">
+                    <a href="{{route('affiliate-request')}}" target="_blank">
+                        <div class="d-block mt-10">
+                            <h3>Total Pending Affiliate Request</h3>
+                            <img class="demo_wait d-none" height="60px"
+                                src="{{showImage('backend/img/loader.gif')}}" alt="">
+                            <h1 class="gradient-color2">
+                                @php
+                                    $af = DB::table('affiliate_requests')->where('status',0)->count();
+                                @endphp
+                                {{ $af }}
+                            </h1>
+                        </div>
+                    </a>
+                </div>
+            </div>
             @endif
             @if (app('dashboard_setup')->where('type', 'visitor_card')->first()->is_active &&
             permissionCheck('widget_visitor'))

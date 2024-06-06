@@ -91,23 +91,38 @@
                                         <table class="table dataTable no-footer dtr-inline">
                                             <thead>
                                                 <tr>
-                                                    <th>#</th>
+                                                    <th>{{__('common.sl')}}</th>
+                                                    <th>Image</th>
+                                                    <th>UserName</th>
                                                     <th>Name</th>
-                                                    <th>Email</th>
-                                                    <th>Affiliates</th>
-                                                    <td>Rank</td>
+                                                    <th>Phone</th>
+                                                    <th>Area</th>
+                                                    <th>Rank</th>
+                                                    <th>SellPoint</th>
+                                                    <th>Affilaites</th>
+                                                    <th>Total Members</th>
+                                                    <th>KYC</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach ($affiliate as $key => $item)
                                                     <tr>
                                                         <td>{{ $key + 1 }}</td>
+                                                        <td>image</td>
+                                                        <td>
+                                                            <a href="{{ route('affiliates',$item->id) }}">
+                                                                {{ $item->username }}
+                                                            </a>
+                                                        </td>
                                                         <td>
                                                             <a href="{{ route('affiliates',$item->id) }}">
                                                                 {{ $item->first_name }}
                                                             </a>
                                                         </td>
-                                                        <td>{{ $item->email }}</td>
+                                                        <td>{{ $item->phone }}</td>
+                                                        <td>Area</td>
+                                                        <td>{{ $item->rank }}</td>
+                                                        <td>SellPoints</td>
                                                         <td>
                                                             @php
                                                                 $code = DB::table('referral_codes')->where('user_id',$item->id)->first();
@@ -118,7 +133,8 @@
                                                             @endphp
                                                             {{ $count ?? 0}}
                                                         </td>
-                                                        <td>{{ $item->rank }}</td>
+                                                        <td>Total Members</td>
+                                                        <td>KYC</td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>

@@ -15,9 +15,12 @@
 
                             <li class="nav-item">
                                 <a class="nav-link active show" href="#all_customer" role="tab" data-toggle="tab"
-                                    id="1" aria-selected="true">Affiliates</a>
+                                    id="1" aria-selected="true">Affiliate Customer</a>
                             </li>
-
+                            <li class="nav-item">
+                                <a class="nav-link" href="#refered" role="tab" data-toggle="tab"
+                                    id="1" aria-selected="true">Referred Customer</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -38,31 +41,120 @@
                                         <table class="table dataTable no-footer dtr-inline">
                                             <thead>
                                                 <tr>
-                                                    <th>#</th>
+                                                    <th>{{__('common.sl')}}</th>
+                                                    <th>Image</th>
+                                                    <th>UserName</th>
                                                     <th>Name</th>
-                                                    <th>Email</th>
-                                                    <th>Affiliates</th>
-                                                    <td>Rank</td>
+                                                    <th>Phone</th>
+                                                    <th>Area</th>
+                                                    <th>Rank</th>
+                                                    <th>SellPoint</th>
+                                                    <th>Affilaites</th>
+                                                    <th>Total Members</th>
+                                                    <th>KYC</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach ($affiliate as $key => $item)
+                                                @if ($item->affiliate == 1)
                                                     <tr>
                                                         <td>{{ $key + 1 }}</td>
+                                                        <td>image</td>
+                                                        <td>
+                                                            <a href="{{ route('affiliates',$item->id) }}">
+                                                                {{ $item->username }}
+                                                            </a>
+                                                        </td>
                                                         <td>
                                                             <a href="{{ route('affiliates',$item->id) }}">
                                                                 {{ $item->first_name }}
                                                             </a>
                                                         </td>
-                                                        <td>{{ $item->email }}</td>
+                                                        <td>{{ $item->phone }}</td>
+                                                        <td>Area</td>
+                                                        <td>{{ $item->rank }}</td>
+                                                        <td>SellPoints</td>
                                                         <td>
                                                             @php
-                                                                $count = DB::table('referral_codes')->where('user_id',$item->id)->count();
+                                                                $code = DB::table('referral_codes')->where('user_id',$item->id)->first();
+                                                                if ($code) {
+                                                                    # code...
+                                                                    $count = DB::table('referral_uses')->where('referral_code',$code->referral_code)->count();
+                                                                }
                                                             @endphp
-                                                            {{ $count }}
+                                                            {{ $count ?? 0}}
                                                         </td>
-                                                        <td>{{ $item->rank }}</td>
+                                                        <td>Total Members</td>
+                                                        <td>KYC</td>
                                                     </tr>
+                                                @endif
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="refered">
+                            <div class="box_header common_table_header ">
+                                <div class="main-title d-md-flex">
+                                    <h3 class="mb-0 mr-30 mb_xs_15px mb_sm_20px">Referred Customers</h3>
+                                </div>
+                            </div>
+                            <div class="QA_section QA_section_heading_custom check_box_table">
+                                <div class="QA_table">
+                                    <!-- table-responsive -->
+                                    <div class="">
+                                        <table class="table dataTable no-footer dtr-inline">
+                                            <thead>
+                                                <tr>
+                                                    <th>{{__('common.sl')}}</th>
+                                                    <th>Image</th>
+                                                    <th>UserName</th>
+                                                    <th>Name</th>
+                                                    <th>Phone</th>
+                                                    <th>Area</th>
+                                                    <th>Rank</th>
+                                                    <th>SellPoint</th>
+                                                    <th>Affilaites</th>
+                                                    <th>Total Members</th>
+                                                    <th>KYC</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($affiliate as $key => $item)
+                                                @if ($item->affiliate != 1)
+                                                    <tr>
+                                                        <td>{{ $key + 1 }}</td>
+                                                        <td>image</td>
+                                                        <td>
+                                                            <a href="{{ route('affiliates',$item->id) }}">
+                                                                {{ $item->username }}
+                                                            </a>
+                                                        </td>
+                                                        <td>
+                                                            <a href="{{ route('affiliates',$item->id) }}">
+                                                                {{ $item->first_name }}
+                                                            </a>
+                                                        </td>
+                                                        <td>{{ $item->phone }}</td>
+                                                        <td>Area</td>
+                                                        <td>{{ $item->rank }}</td>
+                                                        <td>SellPoints</td>
+                                                        <td>
+                                                            @php
+                                                                $code = DB::table('referral_codes')->where('user_id',$item->id)->first();
+                                                                if ($code) {
+                                                                    # code...
+                                                                    $count = DB::table('referral_uses')->where('referral_code',$code->referral_code)->count();
+                                                                }
+                                                            @endphp
+                                                            {{ $count ?? 0}}
+                                                        </td>
+                                                        <td>Total Members</td>
+                                                        <td>KYC</td>
+                                                    </tr>
+                                                @endif
                                                 @endforeach
                                             </tbody>
                                         </table>
