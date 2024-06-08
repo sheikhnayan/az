@@ -1,5 +1,20 @@
 @extends('frontend.amazy.layouts.app')
 @section('content')
+<style>
+    .nav-item .active{
+        border: 1px solid #ff6900;
+        background: #ff6900;
+        border-radius: 10px;
+    }
+
+    .nav-item .active{
+        color: #fff !important;
+    }
+
+    .nav-item a{
+        color: #ff6900;
+    }
+</style>
 <div class="amazy_dashboard_area dashboard_bg section_spacing6">
     <div class="container">
         <div class="row">
@@ -19,97 +34,255 @@
                         </div>
                     </div>
 
-                    <div class="dashboard_white_box_header d-flex align-items-center">
-                        <h4 class="font_20 f_w_700 mb_20">{{__('defaultTheme.user_list')}}</h4>
-                    </div>
-                    <div class="dashboard_white_box_body">
-                        <div class="table_border_whiteBox mb_30">
-                            <div class="table-responsive">
-                                <table class="table amazy_table style4 mb-0">
-                                    <thead>
-                                        <tr>
-                                        <th class="font_14 f_w_700 priamry_text" scope="col">{{__('common.sl')}}</th>
-                                        <th class="font_14 f_w_700 priamry_text" scope="col">Image</th>
-                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">UserName</th>
-                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Name</th>
-                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Phone</th>
-                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Area</th>
-                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Rank</th>
-                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">SellPoint</th>
-                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Affilaites</th>
-                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Total Members</th>
-                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">KYC</th>
-                                        {{-- <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">{{__('common.action')}}</th> --}}
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($referList as $key => $referral)
-                                        <tr>
-                                            <td>
-                                                <span class="font_14 f_w_500 mute_text">{{getNumberTranslate($key +1)}}</span>
-                                            </td>
-                                            <td>
-                                                <span class="font_14 f_w_500 mute_text">{{ $referral->user->image }}</span>
-                                            </td>
-                                            <td>
-                                                <span class="font_14 f_w_500 mute_text">{{ $referral->user->username }}</span>
-                                            </td>
-                                            <td>
-                                                <span class="font_16 f_w_500 mute_text">{{textLimit(@$referral->user->first_name. @$referral->user->last_name,20)}}</span><br>
-                                                <span class="font_12 f_w_400 mute_text">{{@$referral->user->email?@$referral->user->email:@$referral->user->username}}</span>
-                                            </td>
-                                            <td>
-                                                <span class="font_14 f_w_500 mute_text">{{ $referral->user->phone }}</span>
-                                            </td>
-                                            <td>
-                                                <span class="font_14 f_w_500 mute_text">Area</span>
-                                            </td>
-                                            <td>
-
-                                                <span class="font_14 f_w_500 mute_text">
-                                                    @php
-                                                        $user = DB::table('users')->where('id',$referral->user_id)->first();
-                                                    @endphp
-                                                    {{ $user->rank }}
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="font_14 f_w_500 mute_text">SellPoint</span>
-                                            </td>
-                                            <td>
-                                                <span class="font_14 f_w_500 mute_text">
-                                                    @php
-                                                        $code = DB::table('referral_codes')->where('user_id',$referral->user_id)->first();
-                                                        if ($code) {
-                                                            # code...
-                                                            $count = DB::table('referral_uses')->where('referral_code',$code->referral_code)->count();
-                                                        }
-                                                    @endphp
-                                                    {{ $count }}
-                                                    {{-- {{single_price($referral->discount_amount)}} --}}
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="font_14 f_w_500 mute_text">Total Members </span>
-                                            </td>
-                                            <td>
-                                                <span class="font_14 f_w_500 mute_text">KYC</span>
-                                            </td>
-                                            {{-- <td>
-                                            <button id="referral_used{{$referral->id}}" class="referral_used {{$referral->is_use == 1?'style4 amaz_primary_btn gray_bg_btn':'style3 amaz_primary_btn'}} text-nowrap" {{$referral->is_use == 1 ? 'disabled' : '' }} data-id="{{$referral->id}}">{{$referral->is_use == 1?__('common.already_claimed'):__('common.claim')}}</button>
-                                            </td> --}}
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                    <div class="col-md-12 mb-20">
+                        <div class="box_header_right">
+                            <div class="float-lg-right float-none pos_tab_btn justify-content-end">
+                                <ul class="nav" role="tablist" style="float: right">
+        
+                                    <li class="nav-item">
+                                        <a class="nav-link active show" href="#affiliate" role="tab" data-toggle="tab"
+                                            id="1" aria-selected="true">Affiliate Customers</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#all_customer" role="tab" data-toggle="tab"
+                                            id="1" aria-selected="true">Reffered Customers</a>
+                                    </li>
+        
+                                </ul>
                             </div>
                         </div>
-                        @if ($referList->lastPage() > 1)
-                            <x-pagination-component :items="$referList" type=""/>
-                        @elseif(!$referList->count())
-                            <p class="empty_p">{{ __('common.empty_list') }}.</p>
-                        @endif
                     </div>
+
+                    <div class="col-xl-12">
+                        <div class="white_box_30px mb_30">
+                            <div class="tab-content">
+        
+                                <div role="tabpanel" class="tab-pane fade active show" id="affiliate">
+                                    <div class="dashboard_white_box_header d-flex align-items-center">
+                                        <h4 class="font_20 f_w_700 mb_20">Affiliate user List</h4>
+                                    </div>
+                                    <div class="dashboard_white_box_body">
+                                        <div class="table_border_whiteBox mb_30">
+                                            <div class="table-responsive">
+                                                <table class="table amazy_table style4 mb-0">
+                                                    <thead>
+                                                        <tr>
+                                                        <th class="font_14 f_w_700 priamry_text" scope="col">{{__('common.sl')}}</th>
+                                                        <th class="font_14 f_w_700 priamry_text" scope="col">Image</th>
+                                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">UserName</th>
+                                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Name</th>
+                                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Phone</th>
+                                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Area</th>
+                                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Rank</th>
+                                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">SellPoint</th>
+                                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Affilaites</th>
+                                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Total Members</th>
+                                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">KYC</th>
+                                                        {{-- <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">{{__('common.action')}}</th> --}}
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($referList as $key => $referral)
+                                                        @if ($referral->user->affiliate == 1)
+                                                            <tr>
+                                                                <td>
+                                                                    <span class="font_14 f_w_500 mute_text">{{getNumberTranslate($key +1)}}</span>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="font_14 f_w_500 mute_text">{{ $referral->user->image }}</span>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="font_14 f_w_500 mute_text"> 
+                                                                        @php
+                                                                            $u = DB::table('users')->where('id',$referral->user->id)->first();
+                                                                        @endphp
+                                                                        @if ($u->affiliate == 1)
+                                                                            <a href="{{route('customer_panel.referral-check',$referral->id)}}">{{ $referral->user->username }}</a></span>
+                                                                        @else
+                                                                            {{ $referral->user->username }}
+                                                                        @endif
+                                                                </td>
+                                                                <td>
+                                                                    <span class="font_16 f_w_500 mute_text">
+                                                                        @if ($u->affiliate == 1)
+                                                                            <a href="{{route('customer_panel.referral-check',$referral->id)}}">{{textLimit(@$referral->user->first_name. @$referral->user->last_name,20)}}
+                                                                            </a>
+                                                                        @else
+                                                                            {{textLimit(@$referral->user->first_name. @$referral->user->last_name,20)}}
+                                                                        @endif
+                                                                        </span><br>
+                                                                    <span class="font_12 f_w_400 mute_text">{{@$referral->user->email?@$referral->user->email:@$referral->user->username}}</span>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="font_14 f_w_500 mute_text">{{ $referral->user->phone }}</span>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="font_14 f_w_500 mute_text">Area</span>
+                                                                </td>
+                                                                <td>
+                    
+                                                                    <span class="font_14 f_w_500 mute_text">
+                                                                        @php
+                                                                            $user = DB::table('users')->where('id',$referral->user_id)->first();
+                                                                        @endphp
+                                                                        {{ $user->rank }}
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="font_14 f_w_500 mute_text">SellPoint</span>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="font_14 f_w_500 mute_text">
+                                                                        @php
+                                                                            $code = DB::table('referral_codes')->where('user_id',$referral->user_id)->first();
+                                                                            if ($code) {
+                                                                                # code...
+                                                                                $count = DB::table('referral_uses')->where('referral_code',$code->referral_code)->count();
+                                                                            }
+                                                                        @endphp
+                                                                        {{ $count ?? 0}}
+                                                                        {{-- {{single_price($referral->discount_amount)}} --}}
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="font_14 f_w_500 mute_text">Total Members </span>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="font_14 f_w_500 mute_text">KYC</span>
+                                                                </td>
+                                                                {{-- <td>
+                                                                <button id="referral_used{{$referral->id}}" class="referral_used {{$referral->is_use == 1?'style4 amaz_primary_btn gray_bg_btn':'style3 amaz_primary_btn'}} text-nowrap" {{$referral->is_use == 1 ? 'disabled' : '' }} data-id="{{$referral->id}}">{{$referral->is_use == 1?__('common.already_claimed'):__('common.claim')}}</button>
+                                                                </td> --}}
+                                                            </tr>
+                                                        @endif
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        @if ($referList->lastPage() > 1)
+                                            <x-pagination-component :items="$referList" type=""/>
+                                        @elseif(!$referList->count())
+                                            <p class="empty_p">{{ __('common.empty_list') }}.</p>
+                                        @endif
+                                    </div>
+                                </div>
+        
+                                <div role="tabpanel" class="tab-pane fade" id="all_customer">
+                                    <div class="dashboard_white_box_header d-flex align-items-center">
+                                        <h4 class="font_20 f_w_700 mb_20">Reffered user List</h4>
+                                    </div>
+                                    <div class="dashboard_white_box_body">
+                                        <div class="table_border_whiteBox mb_30">
+                                            <div class="table-responsive">
+                                                <table class="table amazy_table style4 mb-0">
+                                                    <thead>
+                                                        <tr>
+                                                        <th class="font_14 f_w_700 priamry_text" scope="col">{{__('common.sl')}}</th>
+                                                        <th class="font_14 f_w_700 priamry_text" scope="col">Image</th>
+                                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">UserName</th>
+                                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Name</th>
+                                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Phone</th>
+                                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Area</th>
+                                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Rank</th>
+                                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">SellPoint</th>
+                                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Affilaites</th>
+                                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Total Members</th>
+                                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">KYC</th>
+                                                        {{-- <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">{{__('common.action')}}</th> --}}
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($referList as $key => $referral)
+                                                        @if ($referral->user->affiliate != 1)
+                                                            <tr>
+                                                                <td>
+                                                                    <span class="font_14 f_w_500 mute_text">{{getNumberTranslate($key +1)}}</span>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="font_14 f_w_500 mute_text">{{ $referral->user->image }}</span>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="font_14 f_w_500 mute_text"> 
+                                                                        @php
+                                                                            $u = DB::table('users')->where('id',$referral->user->id)->first();
+                                                                        @endphp
+                                                                        @if ($u->affiliate == 1)
+                                                                            <a href="{{route('customer_panel.referral-check',$referral->id)}}">{{ $referral->user->username }}</a></span>
+                                                                        @else
+                                                                            {{ $referral->user->username }}
+                                                                        @endif
+                                                                </td>
+                                                                <td>
+                                                                    <span class="font_16 f_w_500 mute_text">
+                                                                        @if ($u->affiliate == 1)
+                                                                            <a href="{{route('customer_panel.referral-check',$referral->id)}}">{{textLimit(@$referral->user->first_name. @$referral->user->last_name,20)}}
+                                                                            </a>
+                                                                        @else
+                                                                            {{textLimit(@$referral->user->first_name. @$referral->user->last_name,20)}}
+                                                                        @endif
+                                                                        </span><br>
+                                                                    <span class="font_12 f_w_400 mute_text">{{@$referral->user->email?@$referral->user->email:@$referral->user->username}}</span>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="font_14 f_w_500 mute_text">{{ $referral->user->phone }}</span>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="font_14 f_w_500 mute_text">Area</span>
+                                                                </td>
+                                                                <td>
+                    
+                                                                    <span class="font_14 f_w_500 mute_text">
+                                                                        @php
+                                                                            $user = DB::table('users')->where('id',$referral->user_id)->first();
+                                                                        @endphp
+                                                                        {{ $user->rank }}
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="font_14 f_w_500 mute_text">SellPoint</span>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="font_14 f_w_500 mute_text">
+                                                                        @php
+                                                                            $code = DB::table('referral_codes')->where('user_id',$referral->user_id)->first();
+                                                                            if ($code) {
+                                                                                # code...
+                                                                                $count = DB::table('referral_uses')->where('referral_code',$code->referral_code)->count();
+                                                                            }
+                                                                        @endphp
+                                                                        {{ $count ?? 0}}
+                                                                        {{-- {{single_price($referral->discount_amount)}} --}}
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="font_14 f_w_500 mute_text">Total Members </span>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="font_14 f_w_500 mute_text">KYC</span>
+                                                                </td>
+                                                                {{-- <td>
+                                                                <button id="referral_used{{$referral->id}}" class="referral_used {{$referral->is_use == 1?'style4 amaz_primary_btn gray_bg_btn':'style3 amaz_primary_btn'}} text-nowrap" {{$referral->is_use == 1 ? 'disabled' : '' }} data-id="{{$referral->id}}">{{$referral->is_use == 1?__('common.already_claimed'):__('common.claim')}}</button>
+                                                                </td> --}}
+                                                            </tr>
+                                                        @endif
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        @if ($referList->lastPage() > 1)
+                                            <x-pagination-component :items="$referList" type=""/>
+                                        @elseif(!$referList->count())
+                                            <p class="empty_p">{{ __('common.empty_list') }}.</p>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
                     @else
                         <div class="dashboard_white_box_header d-flex align-items-center">
                             <h4 class="font_24 f_w_700 mb_20 text-center w-100"><a href="{{ route('bacome-affiliate') }}">Apply to become a Affiliator!</a></h4>
@@ -160,5 +333,9 @@
 
         })(jQuery);
     </script>
+<script src="{{ asset('public/backend/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('public/backend/vendors/js/jquery-3.6.0.min.js') }}"></script>
+<script src="{{ asset('public/backend/js/main.js') }}"></script>
+
 
 @endpush

