@@ -226,6 +226,7 @@ class OrderRepository
         $order->shipping_total = $shipping_cost;
         $order->number_of_package = $data['number_of_package'];
         $order->number_of_item = $data['number_of_item'];
+        $order->point = $data['point'];
         $order->order_status = 0;
         $order->order_payment_id = ($data['order_payment_id'] != 0) ? $data['order_payment_id'] : null;
         $order->tax_amount = $data['tax_total'];

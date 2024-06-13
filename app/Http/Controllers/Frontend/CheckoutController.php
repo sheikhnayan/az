@@ -18,6 +18,7 @@ use Modules\Setup\Repositories\StateRepository;
 use Modules\Shipping\Entities\ShippingMethod;
 use Modules\Setup\Entities\CheckoutFieldVisibility;
 use Modules\UserActivityLog\Traits\LogActivity;
+use Auth;
 
 class CheckoutController extends Controller
 {
@@ -434,8 +435,22 @@ class CheckoutController extends Controller
                     $shipping_method =$infoCompleteOrder['selected_shipping_method']->id;
                 }
             }
+            $point = session()->get('point');
+            if ($point != null) {
+                # code...
+                $grand_total = $grand_total - $point;
+                $poin = Auth::user();
+                $poin->point -= $point;
+                $poin->update();
+            }else{
+                $point = 0;
+            }
+
+            session()->forget('point');
+
             $orderData = [
                 'grand_total' => $grand_total,
+                'point' => $point,
                 'sub_total' => $infoCompleteOrder['subtotal_without_discount'],
                 'discount_total' => $infoCompleteOrder['discount'],
                 'number_of_item' => $infoCompleteOrder['number_of_item'],
@@ -449,6 +464,17 @@ class CheckoutController extends Controller
                 'packagewiseTax' => $infoCompleteOrder['packagewise_tax'],
                 'carts' => $infoCompleteOrder['cartData']
             ];
+
+            $add_point = Auth::user();
+            if ($point > 0) {
+                # code...
+                $add_point->point += round(($add_point->point - ($point * 2)) + ($add_point->point - $point));
+            }else {
+                # code...
+                $add_point->point += 0;
+            }
+            $add_point->update();
+
             $orderData = array_merge($orderData,$coupon);
             $request =$request->merge($orderData);
 

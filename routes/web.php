@@ -40,9 +40,14 @@ use App\Http\Controllers\Frontend\DigitalGiftCardController;
 use App\Http\Controllers\AffiliateController;
 use Modules\OrderManage\Http\Controllers\OrderManageController;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 
 use App\Models\User;
+
+route::get('/point/{amount}', function($amount){
+    session()->put('point',$amount);
+});
 
 Route::get('ch', function(){
     $data = User::where('email','eakeenbd@gmail.com')->first();

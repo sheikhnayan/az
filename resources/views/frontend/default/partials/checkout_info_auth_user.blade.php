@@ -243,7 +243,7 @@
                                                                 <input type="hidden" name="gst_amounts_package_{{ $index }}[]" value="{{ $gstAmount }}">
                                                             @endforeach
                                                         @else
-                                                        
+
                                                             @php
                                                                 $diffStateTaxes = \Modules\GST\Entities\GstTax::whereIn('id', app('gst_config')['between_two_different_states_or_a_state_and_a_Union_Territory'])->get();
                                                             @endphp
@@ -330,7 +330,7 @@
                                                 <p>{{__('defaultTheme.tax_amount')}} : {{single_price(0)}}</p>
                                                 <p>{{__('common.total')}}: {{single_price($item->total_price)}}</p>
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -428,7 +428,7 @@
                                                 @endphp
                                                 <p>{{__('common.total')}}: {{single_price($item->total_price)}}</p>
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -668,7 +668,7 @@
                 }else {
                     $paymentGateways = $gateway_activations->whereNotIn('id',['1']);
                 }
-                
+
             @endphp
 
             @foreach ($paymentGateways as $key => $gateway)

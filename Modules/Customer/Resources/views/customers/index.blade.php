@@ -120,7 +120,20 @@
                                                             </a>
                                                         </td>
                                                         <td>{{ $item->phone }}</td>
-                                                        <td>Area</td>
+                                                        <td>
+                                                            @php
+                                                                $area_code = DB::table('order_address_details')->where('customer_id',$item->id)->first();
+                                                                if ($area_code != null) {
+                                                                    # code...
+                                                                    $area = DB::table('states')->where('id',$area_code->shipping_state_id)->first();
+
+                                                                    $area = $area->name;
+                                                                }else{
+                                                                    $area = 'not set yet';
+                                                                }
+                                                            @endphp
+                                                            {{ $area }}
+                                                        </td>
                                                         <td>{{ $item->rank }}</td>
                                                         <td>SellPoints</td>
                                                         <td>

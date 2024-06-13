@@ -797,4 +797,78 @@
 
         }
     </script>
+
+
+  @auth
+    <div class="modal points" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Use Points</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <input type="number" max="{{ Auth::user()->point }}" class="form-control point-input">
+              <span class="text-danger">Current Points {{ Auth::user()->point }}</span>
+              <span class="text-danger half">You can not use more than half of the total price of the product!</span>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary use">Use</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  @endauth
+
+  <script src=" https://cdn.jsdelivr.net/npm/jquery.session@1.0.0/jquery.session.min.js "></script>
+
+<script>
+    $('#point').on('click', function(){
+        points = $('#poi').val();
+        $('.points').modal('show');
+    })
+
+    $('.use').on('click', function(){
+        po = $('.point-input').val();
+
+
+
+
+        $('.points-used').html('- '+po);
+
+        total = $('#total_amount').data('amount');
+
+        if (po > (total/2)) {
+            $('.half').show();
+            return false;
+
+        }
+
+        $('.points').modal('hide');
+
+
+        newtotal = total - po;
+
+        let currency_code = $("#tabby_fee").attr('data-currency');
+
+        $("#total_amount").html(currency_code+" "+newtotal);
+        $("#total_amount").attr('data-amount',newtotal);
+
+        $.ajax({
+            url: "/point/"+po,
+            type: 'GET',
+            dataType: 'json', // added data type
+            success: function(res) {
+                console.log(res);
+                alert(res);
+            }
+        });
+
+
+
+    })
+</script>
 @endpush

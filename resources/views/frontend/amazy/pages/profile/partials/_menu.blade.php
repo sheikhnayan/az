@@ -53,6 +53,14 @@
                 </div>
                 @endif
             </div>
+            <div class="customer-blance d-flex align-items-end justify-content-between rounded-3 flex-wrap gap-2 border-1">
+                <div  class="flex-grow-1">
+                    <div class="w-100 text-center">
+                        <span>Total Points</span>
+                        <p class="fw-bold" id="total_balance">{{ Auth::user()->point }}</p>
+                    </div>
+                </div>
+            </div>
             @if(auth()->user()->LastRehcarge)
                 <div class="customer-transaction">
                     <div class="head d-flex align-items-center justify-content-between mb-3">
