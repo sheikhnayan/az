@@ -108,7 +108,7 @@
                                                 @foreach ($affiliate as $key => $item)
                                                     <tr>
                                                         <td>{{ $key + 1 }}</td>
-                                                        <td>image</td>
+                                                        <td><img src="{{ asset($item->photo) }}" alt="" class="img-fluid" width="100px"></td>
                                                         <td>
                                                             <a href="{{ route('affiliates',$item->id) }}">
                                                                 {{ $item->username }}
@@ -135,7 +135,26 @@
                                                             {{ $area }}
                                                         </td>
                                                         <td>{{ $item->rank }}</td>
-                                                        <td>SellPoints</td>
+                                                        <td>{{ $item->point }}</td>
+                                                        <td>
+                                                            @php
+                                                                $code = DB::table('referral_codes')->where('user_id',$item->id)->first();
+                                                                if ($code) {
+                                                                    # code...
+                                                                    $counts = DB::table('referral_uses')->where('referral_code',$code->referral_code)->get();
+                                                                    $af = 0;
+                                                                    foreach ($counts as $key => $value) {
+                                                                        # code...
+                                                                        $v = DB::table('users')->where('id',$value->user_id)->first();
+                                                                        if ($v->affiliate == 1) {
+                                                                            # code...
+                                                                            $af =+ 1;
+                                                                        }
+                                                                    }
+                                                                }
+                                                            @endphp
+                                                            {{ $af ?? 0}}
+                                                        </td>
                                                         <td>
                                                             @php
                                                                 $code = DB::table('referral_codes')->where('user_id',$item->id)->first();
@@ -146,8 +165,16 @@
                                                             @endphp
                                                             {{ $count ?? 0}}
                                                         </td>
-                                                        <td>Total Members</td>
-                                                        <td>KYC</td>
+                                                        <td>
+                                                            @php
+                                                                $aff = DB::table('affiliate_requests')->where('user_id',$item->id)->first();
+                                                            @endphp
+                                                            @if ($aff->nid_number != null)
+                                                                Submited
+                                                            @else
+                                                                not Submitted
+                                                            @endif
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>

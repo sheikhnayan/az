@@ -155,19 +155,21 @@
                                                 </span>
                                             </span>
                                         </div>
-                                        <div class="accordion-header" id="point">
-                                            <span class="accordion-button shadow-none" data-bs-toggle="collapse" data-bs-target="#collapse0" aria-controls="collapse0">
-                                                <span class="w-100">
-                                                    <label class="primary_checkbox d-inline-flex style4 gap_10 w-100">
-                                                        <input type="radio" name="payment_method" class="payment_method" data-name="Points" value="100">
-                                                        <span class="checkmark mr_10"></span>
-                                                        <span class="label_name f_w_500 ">
-                                                            Use Points
-                                                        </span>
-                                                    </label>
+                                        @auth
+                                            <div class="accordion-header" id="point">
+                                                <span class="accordion-button shadow-none" data-bs-toggle="collapse" data-bs-target="#collapse0" aria-controls="collapse0">
+                                                    <span class="w-100">
+                                                        <label class="primary_checkbox d-inline-flex style4 gap_10 w-100">
+                                                            <input type="radio" name="payment_method" class="payment_method" data-name="Points" value="100">
+                                                            <span class="checkmark mr_10"></span>
+                                                            <span class="label_name f_w_500 ">
+                                                                Use Points
+                                                            </span>
+                                                        </label>
+                                                    </span>
                                                 </span>
-                                            </span>
-                                        </div>
+                                            </div>
+                                        @endauth
                                         <div id="collapse{{$key}}" class="accordion-collapse collapse {{$key == 0?'show':''}}" aria-labelledby="heading{{$key}}" data-bs-parent="#accordionExample">
                                             <div class="accordion-body" id="acc_{{$payment->id}}">
                                                 <!-- content ::start  -->
@@ -660,14 +662,16 @@
                         <span>+ {{single_price($tax_total)}}</span>
                     </div>
                 </div>
-                <div class="single_total_list d-flex align-items-center flex-wrap">
-                    <div class="single_total_left flex-fill">
-                        <h4>Points Used</h4>
+                @auth
+                    <div class="single_total_list d-flex align-items-center flex-wrap">
+                        <div class="single_total_left flex-fill">
+                            <h4>Points Used</h4>
+                        </div>
+                        <div class="single_total_right">
+                            <span class="points-used">- 0</span>
+                        </div>
                     </div>
-                    <div class="single_total_right">
-                        <span class="points-used">- 0</span>
-                    </div>
-                </div>
+                @endauth
                 @php
                     $coupon = 0;
                     $coupon_id = null;

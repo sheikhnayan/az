@@ -38,7 +38,7 @@
                         <div class="box_header_right">
                             <div class="float-lg-right float-none pos_tab_btn justify-content-end">
                                 <ul class="nav" role="tablist" style="float: right">
-        
+
                                     <li class="nav-item">
                                         <a class="nav-link active show" href="#affiliate" role="tab" data-toggle="tab"
                                             id="1" aria-selected="true">Affiliate Customers</a>
@@ -47,7 +47,7 @@
                                         <a class="nav-link" href="#all_customer" role="tab" data-toggle="tab"
                                             id="1" aria-selected="true">Reffered Customers</a>
                                     </li>
-        
+
                                 </ul>
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                     <div class="col-xl-12">
                         <div class="white_box_30px mb_30">
                             <div class="tab-content">
-        
+
                                 <div role="tabpanel" class="tab-pane fade active show" id="affiliate">
                                     <div class="dashboard_white_box_header d-flex align-items-center">
                                         <h4 class="font_20 f_w_700 mb_20">Affiliate user List</h4>
@@ -92,7 +92,7 @@
                                                                     <span class="font_14 f_w_500 mute_text">{{ $referral->user->image }}</span>
                                                                 </td>
                                                                 <td>
-                                                                    <span class="font_14 f_w_500 mute_text"> 
+                                                                    <span class="font_14 f_w_500 mute_text">
                                                                         @php
                                                                             $u = DB::table('users')->where('id',$referral->user->id)->first();
                                                                         @endphp
@@ -117,10 +117,20 @@
                                                                     <span class="font_14 f_w_500 mute_text">{{ $referral->user->phone }}</span>
                                                                 </td>
                                                                 <td>
-                                                                    <span class="font_14 f_w_500 mute_text">Area</span>
+                                                                    <span class="font_14 f_w_500 mute_text">@php
+                                                                        $area_code = DB::table('order_address_details')->where('customer_id',$referral->user_id)->first();
+                                                                        if ($area_code != null) {
+                                                                            # code...
+                                                                            $area = DB::table('states')->where('id',$area_code->shipping_state_id)->first();
+
+                                                                            $area = $area->name;
+                                                                        }else{
+                                                                            $area = 'not set yet';
+                                                                        }
+                                                                    @endphp</span>
                                                                 </td>
                                                                 <td>
-                    
+
                                                                     <span class="font_14 f_w_500 mute_text">
                                                                         @php
                                                                             $user = DB::table('users')->where('id',$referral->user_id)->first();
@@ -129,7 +139,26 @@
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <span class="font_14 f_w_500 mute_text">SellPoint</span>
+                                                                    <span class="font_14 f_w_500 mute_text">{{ $referral->user->point }}</span>
+                                                                </td>
+                                                                <td>
+                                                                    <span class="font_14 f_w_500 mute_text"> @php
+                                                                        $code = DB::table('referral_codes')->where('user_id',$referral->user_id)->first();
+                                                                        if ($code) {
+                                                                            # code...
+                                                                            $counts = DB::table('referral_uses')->where('referral_code',$code->referral_code)->get();
+                                                                            $af = 0;
+                                                                            foreach ($counts as $key => $value) {
+                                                                                # code...
+                                                                                $v = DB::table('users')->where('id',$value->user_id)->first();
+                                                                                if ($v->affiliate == 1) {
+                                                                                    # code...
+                                                                                    $af =+ 1;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    @endphp
+                                                                    {{ $af ?? 0}} </span>
                                                                 </td>
                                                                 <td>
                                                                     <span class="font_14 f_w_500 mute_text">
@@ -145,10 +174,16 @@
                                                                     </span>
                                                                 </td>
                                                                 <td>
-                                                                    <span class="font_14 f_w_500 mute_text">Total Members </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span class="font_14 f_w_500 mute_text">KYC</span>
+                                                                    <span class="font_14 f_w_500 mute_text">
+                                                                        @php
+                                                                            $aff = DB::table('affiliate_requests')->where('user_id',$referral->user_id)->first();
+                                                                        @endphp
+                                                                        @if ($aff->nid_number != null)
+                                                                            Submited
+                                                                        @else
+                                                                            not Submitted
+                                                                        @endif
+                                                                    </span>
                                                                 </td>
                                                                 {{-- <td>
                                                                 <button id="referral_used{{$referral->id}}" class="referral_used {{$referral->is_use == 1?'style4 amaz_primary_btn gray_bg_btn':'style3 amaz_primary_btn'}} text-nowrap" {{$referral->is_use == 1 ? 'disabled' : '' }} data-id="{{$referral->id}}">{{$referral->is_use == 1?__('common.already_claimed'):__('common.claim')}}</button>
@@ -167,7 +202,7 @@
                                         @endif
                                     </div>
                                 </div>
-        
+
                                 <div role="tabpanel" class="tab-pane fade" id="all_customer">
                                     <div class="dashboard_white_box_header d-flex align-items-center">
                                         <h4 class="font_20 f_w_700 mb_20">Reffered user List</h4>
@@ -203,7 +238,7 @@
                                                                     <span class="font_14 f_w_500 mute_text">{{ $referral->user->image }}</span>
                                                                 </td>
                                                                 <td>
-                                                                    <span class="font_14 f_w_500 mute_text"> 
+                                                                    <span class="font_14 f_w_500 mute_text">
                                                                         @php
                                                                             $u = DB::table('users')->where('id',$referral->user->id)->first();
                                                                         @endphp
@@ -231,7 +266,7 @@
                                                                     <span class="font_14 f_w_500 mute_text">Area</span>
                                                                 </td>
                                                                 <td>
-                    
+
                                                                     <span class="font_14 f_w_500 mute_text">
                                                                         @php
                                                                             $user = DB::table('users')->where('id',$referral->user_id)->first();
@@ -282,7 +317,7 @@
                         </div>
                     </div>
 
-                    
+
                     @else
                         <div class="dashboard_white_box_header d-flex align-items-center">
                             <h4 class="font_24 f_w_700 mb_20 text-center w-100"><a href="{{ route('bacome-affiliate') }}">Apply to become a Affiliator!</a></h4>

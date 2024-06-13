@@ -49,47 +49,76 @@
                                                 <span class="font_14 f_w_500 mute_text">{{getNumberTranslate($key +1)}}</span>
                                             </td>
                                             <td>
-                                                <span class="font_14 f_w_500 mute_text">{{ $referral->image }}</span>
+                                                <span class="font_14 f_w_500 mute_text">{{ $referral->user->image }}</span>
                                             </td>
                                             <td>
-                                                <span class="font_14 f_w_500 mute_text"> 
+                                                <span class="font_14 f_w_500 mute_text">
                                                     @php
-                                                        $u = DB::table('users')->where('id',$referral->id)->first();
+                                                        $u = DB::table('users')->where('id',$referral->user->id)->first();
                                                     @endphp
                                                     @if ($u->affiliate == 1)
-                                                        <a href="{{route('customer_panel.referral-check',$referral->id)}}">{{ $referral->username }}</a></span>
+                                                        <a href="{{route('customer_panel.referral-check',$referral->id)}}">{{ $referral->user->username }}</a></span>
                                                     @else
-                                                        {{ $referral->username }}
+                                                        {{ $referral->user->username }}
                                                     @endif
                                             </td>
                                             <td>
                                                 <span class="font_16 f_w_500 mute_text">
                                                     @if ($u->affiliate == 1)
-                                                        <a href="{{route('customer_panel.referral-check',$referral->id)}}">{{textLimit(@$referral->first_name. @$referral->last_name,20)}}
+                                                        <a href="{{route('customer_panel.referral-check',$referral->id)}}">{{textLimit(@$referral->user->first_name. @$referral->user->last_name,20)}}
                                                         </a>
                                                     @else
-                                                        {{textLimit(@$referral->first_name. @$referral->last_name,20)}}
+                                                        {{textLimit(@$referral->user->first_name. @$referral->user->last_name,20)}}
                                                     @endif
                                                     </span><br>
-                                                <span class="font_12 f_w_400 mute_text">{{@$referral->email?@$referral->email:@$referral->username}}</span>
+                                                <span class="font_12 f_w_400 mute_text">{{@$referral->user->email?@$referral->user->email:@$referral->user->username}}</span>
                                             </td>
                                             <td>
-                                                <span class="font_14 f_w_500 mute_text">{{ $referral->phone }}</span>
+                                                <span class="font_14 f_w_500 mute_text">{{ $referral->user->phone }}</span>
                                             </td>
                                             <td>
-                                                <span class="font_14 f_w_500 mute_text">Area</span>
+                                                <span class="font_14 f_w_500 mute_text">@php
+                                                    $area_code = DB::table('order_address_details')->where('customer_id',$referral->user_id)->first();
+                                                    if ($area_code != null) {
+                                                        # code...
+                                                        $area = DB::table('states')->where('id',$area_code->shipping_state_id)->first();
+
+                                                        $area = $area->name;
+                                                    }else{
+                                                        $area = 'not set yet';
+                                                    }
+                                                @endphp</span>
                                             </td>
                                             <td>
 
                                                 <span class="font_14 f_w_500 mute_text">
                                                     @php
-                                                        $user = DB::table('users')->where('id',$referral->id)->first();
+                                                        $user = DB::table('users')->where('id',$referral->user_id)->first();
                                                     @endphp
                                                     {{ $user->rank }}
                                                 </span>
                                             </td>
                                             <td>
-                                                <span class="font_14 f_w_500 mute_text">SellPoint</span>
+                                                <span class="font_14 f_w_500 mute_text">{{ $referral->user->point }}</span>
+                                            </td>
+                                            <td>
+                                                <span class="font_14 f_w_500 mute_text"> @php
+                                                    $code = DB::table('referral_codes')->where('user_id',$referral->user_id)->first();
+                                                    if ($code) {
+                                                        # code...
+                                                        $counts = DB::table('referral_uses')->where('referral_code',$code->referral_code)->get();
+                                                        $af = 0;
+                                                        foreach ($counts as $key => $value) {
+                                                            # code...
+                                                            $v = DB::table('users')->where('id',$value->user_id)->first();
+                                                            if ($v->affiliate == 1) {
+                                                                # code...
+                                                                $af =+ 1;
+                                                            }
+                                                        }
+                                                    }
+                                                @endphp
+                                                {{ $af ?? 0}} </span>
                                             </td>
                                             <td>
                                                 <span class="font_14 f_w_500 mute_text">
@@ -100,15 +129,21 @@
                                                             $count = DB::table('referral_uses')->where('referral_code',$code->referral_code)->count();
                                                         }
                                                     @endphp
-                                                    {{ $count ?? 0 }}
+                                                    {{ $count ?? 0}}
                                                     {{-- {{single_price($referral->discount_amount)}} --}}
                                                 </span>
                                             </td>
                                             <td>
-                                                <span class="font_14 f_w_500 mute_text">Total Members </span>
-                                            </td>
-                                            <td>
-                                                <span class="font_14 f_w_500 mute_text">KYC</span>
+                                                <span class="font_14 f_w_500 mute_text">
+                                                    @php
+                                                        $aff = DB::table('affiliate_requests')->where('user_id',$referral->user_id)->first();
+                                                    @endphp
+                                                    @if ($aff->nid_number != null)
+                                                        Submited
+                                                    @else
+                                                        not Submitted
+                                                    @endif
+                                                </span>
                                             </td>
                                             {{-- <td>
                                             <button id="referral_used{{$referral->id}}" class="referral_used {{$referral->is_use == 1?'style4 amaz_primary_btn gray_bg_btn':'style3 amaz_primary_btn'}} text-nowrap" {{$referral->is_use == 1 ? 'disabled' : '' }} data-id="{{$referral->id}}">{{$referral->is_use == 1?__('common.already_claimed'):__('common.claim')}}</button>

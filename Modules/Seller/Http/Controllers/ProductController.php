@@ -109,10 +109,10 @@ class ProductController extends Controller
         || $business_info->business_address1 == null || $business_info->business_country == null
         || $business_info->business_state == null || $business_info->business_city == null || $bankInfo->bank_title == null
         || $bankInfo->bank_account_number == null || $bankInfo->bank_name == null || $bankInfo->bank_branch_name == null || $bankInfo->bank_routing_number == null){
-            if(auth()->user()->role->type == 'seller'){
-                Toastr::warning(__('seller.please_update_business_bank_information_from_profile_first'), __('common.warning'));
-                return back();
-            }else{
+            // if(auth()->user()->role->type == 'seller'){
+            //     Toastr::warning(__('seller.please_update_business_bank_information_from_profile_first'), __('common.warning'));
+            //     return back();
+            // }else{
                 $data['units'] = $unitTypeService->getActiveAll();
                 $data['attributes'] = $attributeService->getActiveAll();
                 $data['shippings'] = $shippingService->getActiveAll();
@@ -139,7 +139,7 @@ class ProductController extends Controller
                 }else {
                     return view('seller::products.components.create', $data);
                 }
-            }
+            // }
         }else{
             $data['units'] = $unitTypeService->getActiveAll();
             $data['attributes'] = $attributeService->getActiveAll();

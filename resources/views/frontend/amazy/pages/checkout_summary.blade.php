@@ -74,7 +74,7 @@
                                                     @endif
                                                 @endforeach
                                             </div>
-                                            
+
                                             <h4 class="font_16 f_w_500 m-0 text-capitalize">{{ $package->shipping_date }}</h4>
                                         </div>
                                     </div>

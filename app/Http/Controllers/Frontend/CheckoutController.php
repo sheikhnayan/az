@@ -465,15 +465,19 @@ class CheckoutController extends Controller
                 'carts' => $infoCompleteOrder['cartData']
             ];
 
-            $add_point = Auth::user();
-            if ($point > 0) {
+            if (Auth::check()) {
                 # code...
-                $add_point->point += round(($add_point->point - ($point * 2)) + ($add_point->point - $point));
-            }else {
-                # code...
-                $add_point->point += 0;
+                $add_point = Auth::user();
+                if ($point > 0) {
+                    # code...
+                    $add_point->point += round(($add_point->point - ($point * 2)) + ($add_point->point - $point));
+                }else {
+                    # code...
+                    $add_point->point += 0;
+                }
+                $add_point->update();
             }
-            $add_point->update();
+
 
             $orderData = array_merge($orderData,$coupon);
             $request =$request->merge($orderData);
