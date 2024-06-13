@@ -129,6 +129,11 @@ class AffiliateController extends Controller
     {
         $code = ReferralCode::where('user_id',$id)->first();
 
+        if ($code == null) {
+            # code...
+            return back();
+        }
+
         $data = ReferralUse::where('referral_code',$code->referral_code)->get();
 
         $affiliate = [];
