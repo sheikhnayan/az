@@ -153,11 +153,6 @@
                                                     <th>Name</th>
                                                     <th>Phone</th>
                                                     <th>Area</th>
-                                                    <th>Rank</th>
-                                                    <th>SellPoint</th>
-                                                    <th>Affilaites</th>
-                                                    <th>Total Members</th>
-                                                    <th>KYC</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -178,20 +173,6 @@
                                                         </td>
                                                         <td>{{ $item->phone }}</td>
                                                         <td>Area</td>
-                                                        <td>{{ $item->rank }}</td>
-                                                        <td>SellPoints</td>
-                                                        <td>
-                                                            @php
-                                                                $code = DB::table('referral_codes')->where('user_id',$item->id)->first();
-                                                                if ($code) {
-                                                                    # code...
-                                                                    $count = DB::table('referral_uses')->where('referral_code',$code->referral_code)->count();
-                                                                }
-                                                            @endphp
-                                                            {{ $count ?? 0}}
-                                                        </td>
-                                                        <td>Total Members</td>
-                                                        <td>KYC</td>
                                                     </tr>
                                                 @endif
                                                 @endforeach

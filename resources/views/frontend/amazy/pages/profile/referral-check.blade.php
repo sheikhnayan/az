@@ -138,11 +138,16 @@
                                                     @php
                                                         $aff = DB::table('affiliate_requests')->where('user_id',$referral->user_id)->first();
                                                     @endphp
-                                                    @if ($aff->nid_number != null)
-                                                        Submited
+                                                    @if ($aff != null)
+                                                        @if ($aff->nid_number != null)
+                                                            Submited
+                                                        @else
+                                                            not Submitted
+                                                        @endif
                                                     @else
                                                         not Submitted
                                                     @endif
+
                                                 </span>
                                             </td>
                                             {{-- <td>
