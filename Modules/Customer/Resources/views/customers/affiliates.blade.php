@@ -160,7 +160,7 @@
                                                 @if ($item->affiliate != 1)
                                                     <tr>
                                                         <td>{{ $key + 1 }}</td>
-                                                        <td>image</td>
+                                                        <td><img src="{{ asset($item->photo) }}" alt="" class="img-fluid" width="100px"></td>
                                                         <td>
                                                             <a href="{{ route('affiliates',$item->id) }}">
                                                                 {{ $item->username }}
@@ -172,7 +172,17 @@
                                                             </a>
                                                         </td>
                                                         <td>{{ $item->phone }}</td>
-                                                        <td>Area</td>
+                                                        <td>@php
+                                                            $area_code = DB::table('order_address_details')->where('customer_id',$item->id)->first();
+                                                            if ($area_code != null) {
+                                                                # code...
+                                                                $area = DB::table('states')->where('id',$area_code->shipping_state_id)->first();
+
+                                                                $area = $area->name;
+                                                            }else{
+                                                                $area = 'not set yet';
+                                                            }
+                                                        @endphp</td>
                                                     </tr>
                                                 @endif
                                                 @endforeach
