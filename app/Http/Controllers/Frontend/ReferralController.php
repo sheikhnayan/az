@@ -14,7 +14,7 @@ class ReferralController extends Controller
     {
         $this->middleware('maintenance_mode');
     }
-    
+
     public function referral(){
         $myCode = ReferralCode::where('user_id',auth()->user()->id)->first();
         if (auth()->user()->role->type != 'customer') {
@@ -31,6 +31,26 @@ class ReferralController extends Controller
                 return view(theme('pages.profile.referral'),compact('myCode','referList'));
             }else{
                 return view(theme('pages.profile.referral'));
+            }
+        }
+    }
+
+    public function referral_users(){
+        $myCode = ReferralCode::where('user_id',auth()->user()->id)->first();
+        if (auth()->user()->role->type != 'customer') {
+            if(isset($myCode)){
+                $referList = ReferralUse::where('referral_code',$myCode->referral_code)->latest()->get();
+                return view('backEnd.pages.customer_data.referral-users',compact('myCode','referList'));
+            }else{
+                return view('backEnd.pages.customer_data.referral-users');
+            }
+        }
+        else {
+            if(isset($myCode)){
+                $referList = ReferralUse::where('referral_code',$myCode->referral_code)->paginate(8);
+                return view(theme('pages.profile.referral-users'),compact('myCode','referList'));
+            }else{
+                return view(theme('pages.profile.referral-users'));
             }
         }
     }

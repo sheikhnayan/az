@@ -274,6 +274,7 @@ Route::get('frontend/close-promotion',[WelcomeController::class,'closePromotion'
      Route::get('/orders', [ProfileController::class, 'order']);
      Route::get('/refunds', [ProfileController::class, 'refund']);
      Route::get('/referral', [ReferralController::class, 'referral'])->name('customer_panel.referral');
+     Route::get('/referral-users', [ReferralController::class, 'referral_users'])->name('customer_panel.referral-users');
      Route::get('/referral/{id}', [ReferralController::class, 'referral_check'])->name('customer_panel.referral-check');
      Route::post('/referral/used', [ReferralController::class, 'referralUsed'])->name('customer_panel.referral.used');
      Route::get('/product-review', [ProductReviewController::class, 'index']);
