@@ -73,7 +73,7 @@
                                                                         $u = DB::table('users')->where('id',$referral->user->id)->first();
                                                                     @endphp
                                                                     @if ($u->affiliate == 1)
-                                                                        <a href="{{route('customer_panel.referral-check',$referral->id)}}">{{ $referral->user->username }}</a></span>
+                                                                        <a href="{{route('customer_panel.referral-check',$referral->user->id)}}">{{ $referral->user->username }}</a></span>
                                                                     @else
                                                                         {{ $referral->user->username }}
                                                                     @endif
