@@ -46,6 +46,15 @@ class AffiliateController extends Controller
             $nid_back = str_replace('public','',$nid_back);
         }
 
+        if (isset($request->screen_shot)) {
+            # code...
+            $screen_shot = time().'.'.$request->screen_shot->extension();
+
+            $screen_shot = $request->screen_shot->storeAs('public/image', $screen_shot);
+
+            $screen_shot = str_replace('public','',$screen_shot);
+        }
+
         $new = new AffiliateRequest;
         $new->user_id = Auth::user()->id;
         $new->blood_group = $request->blood_group;
@@ -66,6 +75,11 @@ class AffiliateController extends Controller
 
             $new->nid_back = $nid_back;
 
+        }
+
+        if (isset($request->screen_shot)) {
+            # code...
+            $new->screen_shot = $screen_shot;
         }
 
         $new->save();

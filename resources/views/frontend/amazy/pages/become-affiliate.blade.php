@@ -57,6 +57,12 @@ Become Affiliate
                     <label for="">Transaction Number</label>
                     <input type="text" name="transaction_number" class="form-control" required>
                 </div>
+
+                <div class="form-group">
+                    <label for="">Screen Shot</label>
+                    <input type="file" name="screen_shot" class="form-control" required>
+                </div>
+
                 <button class="btn btn-success mt-4" type="submit">
                     Apply for Affiliate
                 </button>
