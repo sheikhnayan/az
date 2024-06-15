@@ -140,45 +140,51 @@ class RegisterController extends Controller
             $referralData = ReferralCodeSetup::first();
             $referralExist = ReferralCode::where('referral_code', $data['referral_code'])->first();
             if ($referralExist) {
-                $referralExist->update(['total_used' => $referralExist->total_used + 1]);
-                ReferralUse::create([
-                    'user_id' => $user->id,
-                    'referral_code' => $data['referral_code'],
-                    'discount_amount' => $referralData->amount
-                ]);
-                $count = ReferralUse::where('referral_code', $data['referral_code'])->count();
+                $check = User::where('id', $referralExist->user_id)->first();
 
-                #rank 1
-                if ($count > 9) {
+                if ($check->affiliate == 1) {
                     # code...
-                    $use = User::where('id',$referralExist->user_id)->first();
-                    $use->rank = 1;
-                    $use->update();
+                    $referralExist->update(['total_used' => $referralExist->total_used + 1]);
+                    ReferralUse::create([
+                        'user_id' => $user->id,
+                        'referral_code' => $data['referral_code'],
+                        'discount_amount' => $referralData->amount
+                    ]);
+                    $count = ReferralUse::where('referral_code', $data['referral_code'])->count();
 
-                    $affs = ReferralUse::where('referral_code', $data['referral_code'])->get();
+                    #rank 1
+                    if ($count > 9) {
+                        # code...
+                        $use = User::where('id',$referralExist->user_id)->first();
+                        $use->rank = 1;
+                        $use->update();
 
-                        $coun = 0;
+                        $affs = ReferralUse::where('referral_code', $data['referral_code'])->get();
 
-                        foreach ($affs as $key => $value) {
-                            # code...
-                            $count1 = ReferralUse::where('referral_code', $value->referral_code)->count();
+                            $coun = 0;
 
-                            if ($count1 > 9) {
+                            foreach ($affs as $key => $value) {
                                 # code...
-                                $coun += 1;
+                                $count1 = ReferralUse::where('referral_code', $value->referral_code)->count();
+
+                                if ($count1 > 9) {
+                                    # code...
+                                    $coun += 1;
+                                }
+
                             }
 
-                        }
+                            if ($coun > 9) {
+                                # code...
+                                $use = User::where('id',$referralExist->user_id)->first();
+                                $use->rank = 2;
+                                $use->update();
+                            }
 
-                        if ($coun > 9) {
-                            # code...
-                            $use = User::where('id',$referralExist->user_id)->first();
-                            $use->rank = 2;
-                            $use->update();
-                        }
+                    }
+
 
                 }
-
 
             }
         }else {
