@@ -141,7 +141,7 @@
                                 src="{{showImage('backend/img/loader.gif')}}" alt="">
                             <h1 class="gradient-color2">
                                 @php
-                                    $af = DB::table('affiliate_requests')->whereNot('status',1)->count();
+                                    $af = DB::table('affiliate_requests')->where('status',null)->count();
                                 @endphp
                                 {{ $af }}
                             </h1>
