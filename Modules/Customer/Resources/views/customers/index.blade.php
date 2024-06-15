@@ -385,9 +385,7 @@
 
                             },
                             columns: [
-                                { data: 'DT_RowIndex', name: 'id' ,render:function(data){
-                                    return numbertrans(data)
-                                }},
+                                { data: 'id', name: 'id' },
                                 { data: 'avatar', name: 'avatar' },
                                 { data: 'name', name: 'first_name' },
                                 { data: 'email', name: 'email' },
