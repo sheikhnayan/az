@@ -126,7 +126,7 @@ class AffiliateController extends Controller
         if (!isset($referral_code)) {
             ReferralCode::create([
                 'user_id' => $data->user_id,
-                'referral_code' => $user->username ?? mt_rand(65465,656565),
+                'referral_code' => $user->username,
                 'status' => 1
             ]);
         }
