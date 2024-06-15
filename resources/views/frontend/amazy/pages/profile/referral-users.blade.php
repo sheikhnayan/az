@@ -106,7 +106,7 @@
                                                                 @endphp</span>
                                                             </td>
                                                             <td>
-                                                                @if ($referral->affiliate == 1)
+                                                                @if ($referral->user->affiliate == 1)
                                                                     <span class="badge badge-success" style="background: green">Active</span>
                                                                 @else
                                                                     <span class="badge badge-success" style="background: red">Inactive</span>
