@@ -58,7 +58,7 @@
                                                     </thead>
                                                     <tbody>
                                                         @foreach($referList as $key => $referral)
-                                                        @if ($referral->user->affiliate != 1)
+                                                        {{-- @if ($referral->user->affiliate != 1) --}}
                                                         <tr>
                                                             <td>
                                                                 <span class="font_14 f_w_500 mute_text">{{getNumberTranslate($key +1)}}</span>
@@ -108,7 +108,7 @@
                                                             <button id="referral_used{{$referral->id}}" class="referral_used {{$referral->is_use == 1?'style4 amaz_primary_btn gray_bg_btn':'style3 amaz_primary_btn'}} text-nowrap" {{$referral->is_use == 1 ? 'disabled' : '' }} data-id="{{$referral->id}}">{{$referral->is_use == 1?__('common.already_claimed'):__('common.claim')}}</button>
                                                             </td> --}}
                                                         </tr>
-                                                        @endif
+                                                        {{-- @endif --}}
                                                         @endforeach
                                                     </tbody>
                                                 </table>
