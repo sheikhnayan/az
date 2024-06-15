@@ -97,7 +97,7 @@
                                                                             $u = DB::table('users')->where('id',$referral->user->id)->first();
                                                                         @endphp
                                                                         @if ($u->affiliate == 1)
-                                                                            <a href="{{route('customer_panel.referral-check',$referral->id)}}">{{ $referral->user->username }}</a></span>
+                                                                            <a href="{{route('customer_panel.referral-check',$referral->user_id)}}">{{ $referral->user->username }}</a></span>
                                                                         @else
                                                                             {{ $referral->user->username }}
                                                                         @endif
@@ -105,7 +105,7 @@
                                                                 <td>
                                                                     <span class="font_16 f_w_500 mute_text">
                                                                         @if ($u->affiliate == 1)
-                                                                            <a href="{{route('customer_panel.referral-check',$referral->id)}}">{{textLimit(@$referral->user->first_name. @$referral->user->last_name,20)}}
+                                                                            <a href="{{route('customer_panel.referral-check',$referral->user_id)}}">{{textLimit(@$referral->user->first_name. @$referral->user->last_name,20)}}
                                                                             </a>
                                                                         @else
                                                                             {{textLimit(@$referral->user->first_name. @$referral->user->last_name,20)}}
