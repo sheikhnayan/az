@@ -107,9 +107,9 @@
                                                             </td>
                                                             <td>
                                                                 @if ($referral->affiliate == 1)
-                                                                    <span class="badge badge-success">Active</span>
+                                                                    <span class="badge badge-success" style="background: green">Active</span>
                                                                 @else
-                                                                    <span class="badge badge-success">Inactive</span>
+                                                                    <span class="badge badge-success" style="background: red">Inactive</span>
 
                                                                 @endif
                                                             </td>
