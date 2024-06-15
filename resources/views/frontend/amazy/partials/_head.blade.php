@@ -160,6 +160,14 @@
                 top: 40px;
             }
         }
+        @media only screen and (max-width: 991px) {
+            :root {
+                --right: 12px;
+            }
+            .dashboard_sidebar_menuList{
+                display: hide !important;
+            }
+        }
         .popular_search_lists .popular_search_list {
             overflow: hidden;
             word-wrap: break-word;
