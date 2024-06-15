@@ -53,6 +53,7 @@
                                                         <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Name</th>
                                                         <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Phone</th>
                                                         <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Area</th>
+                                                        <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">Affiliate</th>
                                                         {{-- <th class="font_14 f_w_700 priamry_text border-start-0 border-end-0" scope="col">{{__('common.action')}}</th> --}}
                                                         </tr>
                                                     </thead>
@@ -103,6 +104,14 @@
                                                                         $area = 'not set yet';
                                                                     }
                                                                 @endphp</span>
+                                                            </td>
+                                                            <td>
+                                                                @if ($referral->affiliate == 1)
+                                                                    <span class="badge badge-success">Active</span>
+                                                                @else
+                                                                    <span class="badge badge-success">Inactive</span>
+
+                                                                @endif
                                                             </td>
                                                             {{-- <td>
                                                             <button id="referral_used{{$referral->id}}" class="referral_used {{$referral->is_use == 1?'style4 amaz_primary_btn gray_bg_btn':'style3 amaz_primary_btn'}} text-nowrap" {{$referral->is_use == 1 ? 'disabled' : '' }} data-id="{{$referral->id}}">{{$referral->is_use == 1?__('common.already_claimed'):__('common.claim')}}</button>
