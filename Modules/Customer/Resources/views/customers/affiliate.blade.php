@@ -41,7 +41,7 @@
                                                 @foreach ($affiliate as $key => $item)
                                                 @if ($item->affiliate == 1)
                                                     <tr>
-                                                        <td>{{ $key + 1 }}</td>
+                                                        <td>{{ $item->id }}</td>
                                                         <td><img src="{{ asset($item->photo) }}" alt="" class="img-fluid" width="100px"></td>
                                                         <td>
                                                             <a href="{{ route('affiliates',$item->id) }}">
