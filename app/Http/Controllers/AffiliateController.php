@@ -29,15 +29,22 @@ class AffiliateController extends Controller
     {
         $nid_front_request = time().'.'.$request->nid_front->extension();
 
-        $nid_front = $request->nid_front->storeAs('public/image', $nid_front_request);
+        if (isset($request->nid_front)) {
+            # code...
+            $nid_front = $request->nid_front->storeAs('public/image', $nid_front_request);
 
-        $nid_front = str_replace('public','',$nid_front);
+            $nid_front = str_replace('public','',$nid_front);
 
-        $nid_back_request = time().'.'.$request->nid_back->extension();
+        }
 
-        $nid_back = $request->nid_back->storeAs('public/image', $nid_back_request);
+        if (isset($request->nid_back)) {
+            # code...
+            $nid_back_request = time().'.'.$request->nid_back->extension();
 
-        $nid_back = str_replace('public','',$nid_back);
+            $nid_back = $request->nid_back->storeAs('public/image', $nid_back_request);
+
+            $nid_back = str_replace('public','',$nid_back);
+        }
 
         $new = new AffiliateRequest;
         $new->user_id = Auth::user()->id;
@@ -48,8 +55,19 @@ class AffiliateController extends Controller
         $new->payment_method = $request->payment_method;
         $new->account_number = $request->account_number;
         $new->transaction_number = $request->transaction_number;
-        $new->nid_front = $nid_front;
-        $new->nid_back = $nid_back;
+
+        if (isset($request->nid_front)) {
+
+            $new->nid_front = $nid_front;
+
+        }
+
+        if (isset($request->nid_back)) {
+
+            $new->nid_back = $nid_back;
+
+        }
+
         $new->save();
 
         Toastr::success(__('common.deleted_successfully'), 'Applied for Affiliate Successfully!');

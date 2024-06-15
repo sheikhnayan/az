@@ -28,15 +28,15 @@ Become Affiliate
                 </div>
                 <div class="form-group">
                     <label for="">NID Number</label>
-                    <input type="text" name="nid_number" class="form-control" required>
+                    <input type="text" name="nid_number" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="">NID Front Image</label>
-                    <input type="file" name="nid_front" class="form-control" required>
+                    <input type="file" name="nid_front" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="">NID Back Image</label>
-                    <input type="file" name="nid_back" class="form-control" required>
+                    <input type="file" name="nid_back" class="form-control">
                 </div>
 
                 <h4>Payment</h4>

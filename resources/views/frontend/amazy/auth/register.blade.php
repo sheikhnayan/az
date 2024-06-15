@@ -158,7 +158,7 @@
 
                     @else
                         <div class="col-12 mb_20">
-                            <label class="primary_label2">Full Name <span>*</span> </label>
+                            <label class="primary_label2">Full Name (based on your Government ID)<span>*</span> </label>
                             <input name="first_name" id="first_name" value="{{ old('first_name') }}" placeholder="{{ __('common.first_name') }}" onfocus="this.placeholder = ''" onblur="this.placeholder = '{{ __('common.first_name') }}'" class="primary_input3 radius_5px" type="text">
                             <span class="text-danger" >{{ $errors->first('first_name') }}</span>
                         </div>
@@ -169,8 +169,14 @@
                         </div>
                         @if(isModuleActive('Otp') && otp_configuration('otp_activation_for_customer') || app('business_settings')->where('type', 'email_verification')->first()->status == 0)
                         <div class="col-12 mb_20">
-                            <label class="primary_label2">{{__('common.email_or_phone')}} <span>*</span></label>
+                            <label class="primary_label2">Phone <span>*</span></label>
                             <input name="email" id="email" value="{{ old('email') }}" placeholder="{{ __('common.email_or_phone') }}" onfocus="this.placeholder = ''" onblur="this.placeholder = '{{ __('common.email_or_phone') }}'" class="primary_input3 radius_5px" type="text">
+                            <span class="text-danger" >{{ $errors->first('email') }}</span>
+                        </div>
+
+                        <div class="col-12 mb_20">
+                            <label class="primary_label2">{{__('common.email')}}</label>
+                            <input name="email" id="email" value="{{ old('email') }}" placeholder="{{ __('common.email') }}" onfocus="this.placeholder = ''" onblur="this.placeholder = '{{ __('common.email') }}'" class="primary_input3 radius_5px" type="text">
                             <span class="text-danger" >{{ $errors->first('email') }}</span>
                         </div>
                         @else
