@@ -108,7 +108,7 @@
                                             <tbody>
                                                 @foreach ($affiliate as $key => $item)
                                                     <tr>
-                                                        <td>{{ $key + 1 }}</td>
+                                                        <td>{{  $affiliate->count() - $key }}</td>
                                                         <td><img src="{{ asset($item->photo) }}" alt="" class="img-fluid" width="100px"></td>
                                                         <td>
                                                             <a href="{{ route('affiliates',$item->id) }}">
