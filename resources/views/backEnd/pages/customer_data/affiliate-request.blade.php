@@ -56,6 +56,7 @@
                                             <th width="10%">Payment Method</th>
                                             <th width="10%">Account Number / Bank Name</th>
                                             <th width="10%">Transaction Number</th>
+                                            <th width="10%">Screen Shot</th>
                                             <th>{{__('common.action')}}</th>
                                         </tr>
                                     </thead>
@@ -92,6 +93,9 @@
                                                 </td>
                                                 <td>
                                                     {{ $item->transaction_number }}
+                                                </td>
+                                                <td>
+                                                    <a target="_blank" href="{{ asset('public/storage'.$item->screen_shot) }}">Screen Shot</a>
                                                 </td>
                                                 <td>
                                                     @if ($item->status == 0)

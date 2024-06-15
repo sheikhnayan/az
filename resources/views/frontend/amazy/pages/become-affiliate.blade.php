@@ -28,7 +28,7 @@ Become Affiliate
                 </div>
                 <div class="form-group">
                     <label for="">NID Number</label>
-                    <input type="text" name="nid_number" class="form-control">
+                    <input type="text" name="nid_number" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="">NID Front Image</label>
