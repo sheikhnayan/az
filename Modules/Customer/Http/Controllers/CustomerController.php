@@ -81,7 +81,9 @@ class CustomerController extends Controller
 
     public function customer_affiliate()
     {
-        dd('s');
+        $data = User::where('affiliate',1)->get();
+
+        return view('customer::customers.affiliate',compact('data'));
     }
 
     public function profile(ProfileRequest $request)
