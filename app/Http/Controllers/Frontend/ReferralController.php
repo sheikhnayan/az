@@ -60,12 +60,8 @@ class ReferralController extends Controller
         if ($code != null) {
             # code...
             $data = ReferralUse::where('referral_code',$code->referral_code)->get();
-        }else {
-            $data = null;
-        }
 
-
-        $affiliate = [];
+            $affiliate = [];
 
         foreach ($data as $key => $value) {
             # code...
@@ -73,6 +69,13 @@ class ReferralController extends Controller
 
             array_push($affiliate,$add);
         }
+
+        }else {
+            $data = null;
+            $affiliate = [];
+        }
+
+
 
         return view(theme('pages.profile.referral-check'),compact('affiliate','code'));
     }
