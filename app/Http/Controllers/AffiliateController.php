@@ -27,9 +27,9 @@ class AffiliateController extends Controller
      */
     public function apply(Request $request)
     {
-        $nid_front_request = time().'.'.$request->nid_front->extension();
 
         if (isset($request->nid_front)) {
+            $nid_front_request = time().'.'.$request->nid_front->extension();
             # code...
             $nid_front = $request->nid_front->storeAs('public/image', $nid_front_request);
 
