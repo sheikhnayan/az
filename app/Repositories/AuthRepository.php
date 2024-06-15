@@ -58,7 +58,7 @@ class AuthRepository{
         return $user;
     }
     public function getRegister($user)
-    { 
+    {
         $field = $user['email'];
         $email = null;
         $phone = null;

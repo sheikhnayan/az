@@ -170,8 +170,8 @@
                         @if(isModuleActive('Otp') && otp_configuration('otp_activation_for_customer') || app('business_settings')->where('type', 'email_verification')->first()->status == 0)
                         <div class="col-12 mb_20">
                             <label class="primary_label2">Phone <span>*</span></label>
-                            <input name="email" id="email" value="{{ old('email') }}" placeholder="{{ __('common.email_or_phone') }}" onfocus="this.placeholder = ''" onblur="this.placeholder = '{{ __('common.email_or_phone') }}'" class="primary_input3 radius_5px" type="text">
-                            <span class="text-danger" >{{ $errors->first('email') }}</span>
+                            <input name="phone" id="phone" value="{{ old('phone') }}" placeholder="Phone Number" onfocus="this.placeholder = ''" class="primary_input3 radius_5px" type="text">
+                            <span class="text-danger" >{{ $errors->first('phone') }}</span>
                         </div>
 
                         <div class="col-12 mb_20">
