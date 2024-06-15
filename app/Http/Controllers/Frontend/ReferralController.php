@@ -57,7 +57,7 @@ class ReferralController extends Controller
     public function referral_check($id){
         $code = ReferralCode::where('user_id',$id)->first();
 
-        dd($code);
+        // dd($code)
 
         if ($code != null) {
             # code...
