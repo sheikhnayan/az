@@ -78,6 +78,12 @@ class CustomerController extends Controller
             return [];
         }
     }
+
+    public function customer_affiliate()
+    {
+        dd('s');
+    }
+
     public function profile(ProfileRequest $request)
     {
          try {
