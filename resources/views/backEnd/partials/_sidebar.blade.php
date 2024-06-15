@@ -65,8 +65,8 @@
                                                 @else
                                                     {{route(@$menu->backendMenu->route, 'admin')}}
                                                 @endif
-                                            {{-- @elseif (@$menu->backendMenu->route == 'customer.list_afiiliate')
-                                                    {{ route(@menu->backendMenu->route, 'customer.list_affiliate') }} --}}
+                                            @elseif (@$menu->backendMenu->route == 'customer.affiliate_list')
+                                                    {{ route(@menu->backendMenu->route, 'customer.affiliate_list') }}
                                             @else
                                                 {{route(@$menu->backendMenu->route)}}
                                             @endif
