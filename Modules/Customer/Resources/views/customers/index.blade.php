@@ -102,6 +102,7 @@
                                                     <th>Affilaites</th>
                                                     <th>Total Members</th>
                                                     <th>KYC</th>
+                                                    <th>Affiliate Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -173,6 +174,13 @@
                                                                 Submited
                                                             @else
                                                                 not Submitted
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            @if ($item->affiliate == 1)
+                                                                <span class="badge badge-success">Active</span>
+                                                            @else
+                                                                <span class="badge badge-danger">Inactive</span>
                                                             @endif
                                                         </td>
                                                     </tr>
