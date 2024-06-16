@@ -29,6 +29,7 @@
                                                     <th>UserName</th>
                                                     <th>Name</th>
                                                     <th>Phone</th>
+                                                    <th>Whatsapp</th>
                                                     <th>Area</th>
                                                     <th>Amount</th>
                                                     <th>Rank</th>
@@ -55,6 +56,7 @@
                                                             </a>
                                                         </td>
                                                         <td>{{ $item->phone }}</td>
+                                                        <td>{{ $item->request->whatsapp }}</td>
                                                         <td>@php
                                                             $area_code = DB::table('order_address_details')->where('customer_id',$item->id)->first();
                                                             if ($area_code != null) {
