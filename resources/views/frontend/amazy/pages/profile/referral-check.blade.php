@@ -49,32 +49,32 @@
                                                 <span class="font_14 f_w_500 mute_text">{{getNumberTranslate($key +1)}}</span>
                                             </td>
                                             <td>
-                                                <span class="font_14 f_w_500 mute_text">{{ $referral->user->image ?? null}}</span>
+                                                <span class="font_14 f_w_500 mute_text">{{ $referral->image }}</span>
                                             </td>
                                             <td>
                                                 <span class="font_14 f_w_500 mute_text">
                                                     @php
-                                                        $u = DB::table('users')->where('id',$referral->user->id)->first();
+                                                        $u = DB::table('users')->where('id',$referral->id)->first();
                                                     @endphp
                                                     @if ($u->affiliate == 1)
-                                                        <a href="{{route('customer_panel.referral-check',$referral->id)}}">{{ $referral->user->username }}</a></span>
+                                                        <a href="{{route('customer_panel.referral-check',$referral->id)}}">{{ $referral->username }}</a></span>
                                                     @else
-                                                        {{ $referral->user->username }}
+                                                        {{ $referral->username }}
                                                     @endif
                                             </td>
                                             <td>
                                                 <span class="font_16 f_w_500 mute_text">
                                                     @if ($u->affiliate == 1)
-                                                        <a href="{{route('customer_panel.referral-check',$referral->id)}}">{{textLimit(@$referral->user->first_name. @$referral->user->last_name,20)}}
+                                                        <a href="{{route('customer_panel.referral-check',$referral->id)}}">{{textLimit(@$referral->first_name. @$referral->last_name,20)}}
                                                         </a>
                                                     @else
-                                                        {{textLimit(@$referral->user->first_name. @$referral->user->last_name,20)}}
+                                                        {{textLimit(@$referral->first_name. @$referral->last_name,20)}}
                                                     @endif
                                                     </span><br>
-                                                <span class="font_12 f_w_400 mute_text">{{@$referral->user->email?@$referral->user->email:@$referral->user->username}}</span>
+                                                <span class="font_12 f_w_400 mute_text">{{@$referral->email?@$referral->email:@$referral->username}}</span>
                                             </td>
                                             <td>
-                                                <span class="font_14 f_w_500 mute_text">{{ $referral->user->phone }}</span>
+                                                <span class="font_14 f_w_500 mute_text">{{ $referral->phone }}</span>
                                             </td>
                                             <td>
                                                 <span class="font_14 f_w_500 mute_text">@php
@@ -99,7 +99,7 @@
                                                 </span>
                                             </td>
                                             <td>
-                                                <span class="font_14 f_w_500 mute_text">{{ $referral->user->point }}</span>
+                                                <span class="font_14 f_w_500 mute_text">{{ $referral->point }}</span>
                                             </td>
                                             <td>
                                                 <span class="font_14 f_w_500 mute_text"> @php
