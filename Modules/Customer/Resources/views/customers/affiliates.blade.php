@@ -47,6 +47,7 @@
                                                     <th>Name</th>
                                                     <th>Phone</th>
                                                     <th>Area</th>
+                                                    <th>Amount</th>
                                                     <th>Rank</th>
                                                     <th>SellPoint</th>
                                                     <th>Affilaites</th>
@@ -83,6 +84,7 @@
                                                             }
                                                         @endphp
                                                         {{ $area }}</td>
+                                                        <td>{{ $item->request->amount }}</td>
                                                         <td>{{ $item->rank }}</td>
                                                         <td>{{ $item->point }}</td>
                                                         <td>

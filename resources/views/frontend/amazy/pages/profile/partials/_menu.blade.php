@@ -13,7 +13,26 @@
                         @if(auth()->user()->phone)
                             <span  class="number_text font_14 f_w_400 mute_text text-white">{{auth()->user()->phone}}</span>
                         @endif
+                        @if (Auth::user()->affiliate == 1)
+                            @if (Auth::user()->rank != null)
+                                <p class="text-white">{{ Auth::user()->rank }}</p>
+                            @else
+                                <p class="text-white">Business Promoter</p>
+                            @endif
+                        @endif
+                        @php
+                            $check = DB::table('referral_uses')->where('user_id',Auth::user()->id)->first();
 
+                            if ($check) {
+                                # code...
+                                $referred = DB::table('referral_codes')->where('referral_code',$check->referral_code)->first();
+
+                                $referred_by = DB::table('users')->where('id',$referred->user_id)->first();
+                            }
+                        @endphp
+                        @if ($check)
+                            <p class="text-white">{{ $referred_by->first_name }}</p>
+                        @endif
                     </div>
                     <a href="{{url('/profile')}}" class="amaz_primary_btn d-inline-flex align-items-center gap-2 ms-auto">{{__('common.edit')}}</a>
                 </div>

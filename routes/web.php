@@ -57,6 +57,8 @@ Route::get('ch', function(){
 
 Route::get('become-affiliate', [AffiliateController::class,'index'])->name('bacome-affiliate');
 
+Route::get('become-affiliate/{amount}', [AffiliateController::class,'index_2'])->name('bacome-affiliate-second');
+
 Route::get('set-affiliate/{id}', [AffiliateController::class,'set_affiliate'])->name('set-affiliate');
 
 Route::post('apply-affiliate', [AffiliateController::class,'apply'])->name('apply-affiliate')->middleware('auth');

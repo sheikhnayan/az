@@ -330,7 +330,19 @@
         }
     </script> --}}
 @endif
+<script>
+    $('#payment_method').on('change', function(){
+        val = $(this).val();
 
+        if (val == 'online') {
+            $('.offline').hide();
+            $('.online').show();
+        } else {
+            $('.offline').show();
+            $('.online').hide();
+        }
+    })
+</script>
 </body>
 
 </html>

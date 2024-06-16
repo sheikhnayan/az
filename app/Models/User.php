@@ -130,6 +130,11 @@ class User extends Authenticatable
         return $this->hasOne(Profile::class, 'user_id', 'id')->withDefault();
     }
 
+    public function request()
+    {
+        return $this->hasOne(AffiliateRequest::class, 'user_id', 'id');
+    }
+
     public function sub_seller()
     {
         return $this->hasOne(SubSeller::class, 'user_id', 'id')->withDefault();

@@ -19,7 +19,12 @@ class AffiliateController extends Controller
      */
     public function index()
     {
-        return view('frontend.amazy.pages.become-affiliate');
+        return view('frontend.amazy.pages.become-affiliate1');
+    }
+
+    public function index_2($amount)
+    {
+        return view('frontend.amazy.pages.become-affiliate',compact('amount'));
     }
 
     /**
@@ -58,6 +63,8 @@ class AffiliateController extends Controller
         $new = new AffiliateRequest;
         $new->user_id = Auth::user()->id;
         $new->blood_group = $request->blood_group;
+        $new->whatsapp = $request->whatsapp;
+        $new->amount = $request->amount;
         $new->dob = $request->dob;
         $new->gender = $request->gender;
         $new->nid_number = $request->nid_number;
@@ -84,7 +91,7 @@ class AffiliateController extends Controller
 
         $new->save();
 
-        Toastr::success(__('common.deleted_successfully'), 'Applied for Affiliate Successfully!');
+        Toastr::success(__('Applied Successfully!'), 'Applied for Affiliate Successfully!');
         return redirect('/');
     }
 
@@ -133,6 +140,46 @@ class AffiliateController extends Controller
         $referral_use = ReferralUse::where('user_id', $data->user_id)->where('is_use', 0)->first();
         if (isset($referral_use)) {
         }
+
+
+        if ($data->status != 0) {
+            # code...
+            $first_check = ReferralUse::where('user_id', $data->user_id)->first();
+
+            if ($first_check) {
+                # code...
+                $first = ReferralCode::where('referral_code',$first_check->referral_code)->first();
+
+                $first_user = User::find($first->user_id);
+                $first_user->point += ($data->amount/100) * 10;
+                $first_user->update();
+
+                $second_check = ReferralUse::where('user_id', $first->user_id)->first();
+
+                if ($second_check) {
+                    # code...
+                    $second = ReferralCode::where('referral_code',$second_check->referral_code)->first();
+
+                    $second_user = User::find($second->user_id);
+                    $second_user->point += ($data->amount/100) * 5;
+                    $second_user->update();
+
+
+                    $third_check = ReferralUse::where('user_id', $second->user_id)->first();
+
+                    if ($third_check) {
+                        # code...
+                        $third = ReferralCode::where('referral_code',$third_check->referral_code)->first();
+
+                        $third_user = User::find($third->user_id);
+                        $third_user->point += ($data->amount/100) * 2.5;
+                        $third_user->update();
+                    }
+                }
+            }
+        }
+
+
 
         Toastr::success(__('common.deleted_successfully'), 'Request Approved!');
 

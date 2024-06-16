@@ -54,6 +54,7 @@
                                             <th width="10%">Blood Group</th>
                                             <th width="10%">Gender</th>
                                             <th width="10%">Payment Method</th>
+                                            <th width="10%">Amount</th>
                                             <th width="10%">Account Number / Bank Name</th>
                                             <th width="10%">Transaction Number</th>
                                             <th width="10%">Screen Shot</th>
@@ -87,6 +88,9 @@
                                                 </td>
                                                 <td>
                                                     {{ $item->payment_method }}
+                                                </td>
+                                                <td>
+                                                    {{ $item->amount }}
                                                 </td>
                                                 <td>
                                                     {{ $item->account_number }}
