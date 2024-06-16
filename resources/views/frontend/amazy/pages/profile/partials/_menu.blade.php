@@ -32,7 +32,7 @@
                             }
                         @endphp
                         @if ($check)
-                            <p class="text-white">Referred By : {{ $referred_by->first_name }}</p>
+                            <p class="text-white">Referred By : {{ $referred_by->username }}</p>
                         @endif
                     </div>
                     <a href="{{url('/profile')}}" class="amaz_primary_btn d-inline-flex align-items-center gap-2 ms-auto">{{__('common.edit')}}</a>
