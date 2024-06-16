@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Modules\Marketing\Entities\ReferralCode;
 use Modules\Marketing\Entities\ReferralUse;
 use Modules\Wallet\Entities\WalletBalance;
+use App\Models\User;
 
 class ReferralController extends Controller
 {
