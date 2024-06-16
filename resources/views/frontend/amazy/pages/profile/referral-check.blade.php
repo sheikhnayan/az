@@ -49,7 +49,7 @@
                                                 <span class="font_14 f_w_500 mute_text">{{getNumberTranslate($key +1)}}</span>
                                             </td>
                                             <td>
-                                                <span class="font_14 f_w_500 mute_text">{{ $referral->user->image }}</span>
+                                                <span class="font_14 f_w_500 mute_text">{{ $referral->user->image ?? null}}</span>
                                             </td>
                                             <td>
                                                 <span class="font_14 f_w_500 mute_text">
