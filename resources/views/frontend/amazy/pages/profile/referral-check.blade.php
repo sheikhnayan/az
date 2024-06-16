@@ -93,7 +93,7 @@
 
                                                 <span class="font_14 f_w_500 mute_text">
                                                     @php
-                                                        $user = DB::table('users')->where('id',$referral->user_id)->first();
+                                                        $user = DB::table('users')->where('id',$referral->id)->first();
                                                     @endphp
                                                     {{ $user->rank }}
                                                 </span>
